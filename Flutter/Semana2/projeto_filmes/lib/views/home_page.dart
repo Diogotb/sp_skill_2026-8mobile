@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:projeto_filmes/controller/filme_controller.dart';
 import 'package:projeto_filmes/model/filme.dart';
+import 'package:projeto_filmes/widgets/curved_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,59 +28,83 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Absolute Cinema"),
-        backgroundColor: Colors.red,
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.pushNamed(context, '/search');
+          }, icon: Icon(Icons.search, color: Colors.white,))
+        ],
+        centerTitle: true,
+        title: Text("Absolute Cinema", style: TextStyle(color: Colors.white70)),
+        backgroundColor: Color(0xFF6B0000),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(10),
+      body: Center(
         child: Column(
           children: [
-            FutureBuilder<List<Filme>>(
-              future: futureFilmes,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final List<String?> posterPaths =
-                      snapshot.data!
-                          .map<String?>((filme) => filme.posterPath)
-                          .toList();
+            CurvedContainer(
+              curveHeight: 75,
+              color: Colors.white70,
+              child: Column(
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    "Populares Agora!",
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
 
-                  return CarouselSlider(
-                    items:
-                        posterPaths.map((posterPath) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500$posterPath',
-                                  fit: BoxFit.contain,
-                                ),
-                              );
-                            },
-                          );
-                        }).toList(),
-                    options: CarouselOptions(
-                      height: 400,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 0.2,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
+                  SizedBox(height: 24),
+                  FutureBuilder<List<Filme>>(
+                    future: futureFilmes,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final List<String?> posterPaths =
+                            snapshot.data!
+                                .map<String?>((filme) => filme.posterPath)
+                                .toList();
 
-                return const CircularProgressIndicator();
-              },
+                        return CarouselSlider(
+                          items:
+                              posterPaths.map((posterPath) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width:
+                                          MediaQuery.of(context).size.width *
+                                          0.3,
+                                      child: Image.network(
+                                        'https://image.tmdb.org/t/p/w500$posterPath',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                          options: CarouselOptions(
+                            height: 400,
+                            aspectRatio: 16 / 9,
+                            viewportFraction: 0.3,
+                            initialPage: 0,
+                            enableInfiniteScroll: false,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration: Duration(
+                              milliseconds: 800,
+                            ),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.3,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
+
+                      return const CircularProgressIndicator();
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
