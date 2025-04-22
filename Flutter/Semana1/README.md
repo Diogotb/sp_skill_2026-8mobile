@@ -78,3 +78,20 @@ Basicamente, um aplicativo Flutter é composto por diversas partes, gerados pelo
 - **Runner**
     Compila o Embedder em um app que possa rodar no sistema operacional do dispositivo
     Gerado pelo ```flutter create```
+
+## Widgets
+  A composição e estruturação dos elementos em Flutter é realizada por meio dos widgets, os widgets formam uma hierarquia baseada em sua composição, com cada um deles possuindo um elemento pai, que podem receber o seu contexto. Normalmente o widget raiz que engloba todo o aplicativo é o MaterialApp ou CupertinoApp.
+
+  Os widgets utilizados para a construção de UI são compostos por diversos widgets simples que servem apenas uma única função, o widget `Container` por exemplo é composto por outros widgets, esses sendo: `LimitedBox`, `ConstrainedBox`, `Align`, `Padding`, `DecoratedBox` e `Transform`.
+
+  Os widgets são construídos a partir do método `build()`, que também serve para reconstruir o widget toda vez que o método foi chamado. Toda vez que o estado de um widget é alterado, esse método é chamado para reconstruir toda a UI baseada no estado novo, feito pelo método `setState()`, que 'diz' ao Flutter que o estado foi alterado, e então o Framework reconstrói o widget a fim de replicar as novas mudanças do estado.
+
+## Estados de Widgets
+
+  O Flutter possui duas classes principais de widget, stateful e stateless.
+
+  Aos widgets que não possuem um estado mutável, ou seja, que é capaz de ser alterado ou possui propriedades de mudança ao longo do tempo (exemplo: Icon, Label) é atribuída a superclasse `StatelessWidget`, caso contrário, será um `StatefulWidget`. Esses widgets Stateful são capazes de armazenar o estado em uma classe filha de `State`, e não possuem um método `build()`, pois constroem sua interface por meio do objeto `State`.
+
+  Por conta disso, toda vez que o estado é alterado, é necessário chamar o método `setState()`, caso contrário o framework não irá notar ou construir o widget com as alterações.
+
+  
