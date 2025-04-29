@@ -48,3 +48,9 @@ O apelo também será voltado à questões de imagem e visual moderno, a fim de 
 
 ## Progresso dia 1:
 ![alt text](image-1.png)
+
+## Progresso dia 2:
+
+- Protótipo concluído, início do desenvolvimento: 
+- Protótipo: https://www.figma.com/proto/wgMvxVDRtuTTXBQnbmymfh/Prot%C3%B3tipo?node-id=0-1&t=BvbWKED8LugUKXgr-1
+- Arquivo: https://www.figma.com/design/wgMvxVDRtuTTXBQnbmymfh/Prot%C3%B3tipo?node-id=0-1&t=BvbWKED8LugUKXgr-1
