@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_filmes/controller/filme_controller.dart';
 import 'package:projeto_filmes/model/filme.dart';
 import 'package:projeto_filmes/theme/app_colors.dart';
+import 'package:projeto_filmes/views/detalhes_page.dart';
 import 'package:projeto_filmes/widgets/triangle.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,26 +51,31 @@ class _HomePageState extends State<HomePage> {
                           future: futureFilmes,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              final List<String?> posterPaths =
-                                  snapshot.data!
-                                      .map<String?>((filme) => filme.posterPath)
-                                      .toList();
+                              final List<Filme> filmes =
+                                  snapshot
+                                      .data!;
 
                               return CarouselSlider(
                                 carouselController: _posterController,
                                 items:
-                                    posterPaths.map((posterPath) {
+                                    filmes.map((filme) {
+                                      // Use a lista de filmes aqui
                                       return Builder(
                                         builder: (BuildContext context) {
                                           return Container(
                                             color: Colors.black,
-                                            child: Image.network(
-                                              'https://image.tmdb.org/t/p/w500$posterPath',
-                                              width:
-                                                  MediaQuery.of(
-                                                    context,
-                                                  ).size.width,
-                                              fit: BoxFit.cover,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(context, '/detalhes', arguments: {'filme': filme.id});
+                                              },
+                                              child: Image.network(
+                                                'https://image.tmdb.org/t/p/w500${filme.posterPath}',
+                                                width:
+                                                    MediaQuery.of(
+                                                      context,
+                                                    ).size.width,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           );
                                         },
@@ -84,8 +90,8 @@ class _HomePageState extends State<HomePage> {
                                   enableInfiniteScroll: false,
                                   reverse: false,
                                   autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
-                                  autoPlayAnimationDuration: Duration(
+                                  autoPlayInterval: const Duration(seconds: 3),
+                                  autoPlayAnimationDuration: const Duration(
                                     milliseconds: 800,
                                   ),
                                   autoPlayCurve: Curves.fastOutSlowIn,
@@ -93,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                                   onPageChanged: (index, reason) {
                                     _titleController.animateToPage(
                                       index,
-                                      duration: Duration(milliseconds: 300),
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
                                       curve: Curves.easeInOut,
                                     );
                                   },
@@ -412,7 +420,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          'assets/img/categories/a_chamada.png',
                                           height: 150,
                                         ),
                                       ),
@@ -422,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: -math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/o_principe_esquecido.png',
+                                          'assets/img/categories/zona_de_risco.png',
                                           height: 150,
                                         ),
                                       ),
@@ -430,7 +438,7 @@ class _HomePageState extends State<HomePage> {
                                     Positioned(
                                       left: 25,
                                       child: Image.asset(
-                                        'assets/img/categories/avatar.png',
+                                        'assets/img/categories/o_cavaleiro_das_trevas.png',
                                         height: 150,
                                       ),
                                     ),
@@ -438,7 +446,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "Aventure-se!",
+                                "Histórias de ação",
                                 style:
                                     Theme.of(context).textTheme.headlineLarge,
                               ),
@@ -477,7 +485,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          'assets/img/categories/panico_5.png',
                                           height: 150,
                                         ),
                                       ),
@@ -487,7 +495,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: -math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/o_principe_esquecido.png',
+                                          'assets/img/categories/halloween.png',
                                           height: 150,
                                         ),
                                       ),
@@ -495,7 +503,7 @@ class _HomePageState extends State<HomePage> {
                                     Positioned(
                                       left: 25,
                                       child: Image.asset(
-                                        'assets/img/categories/avatar.png',
+                                        'assets/img/categories/sexta_feira_13.png',
                                         height: 150,
                                       ),
                                     ),
@@ -503,9 +511,9 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "Aventure-se!",
+                                "Aterrorizantes",
                                 style:
-                                Theme.of(context).textTheme.headlineLarge,
+                                    Theme.of(context).textTheme.headlineLarge,
                               ),
                             ],
                           ),
@@ -543,7 +551,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          'assets/img/categories/um_filme_minecraft.png',
                                           height: 150,
                                         ),
                                       ),
@@ -553,7 +561,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Transform.rotate(
                                         angle: -math.pi / 12,
                                         child: Image.asset(
-                                          'assets/img/categories/o_principe_esquecido.png',
+                                          'assets/img/categories/a_lista_da_minha_vida.png',
                                           height: 150,
                                         ),
                                       ),
@@ -561,7 +569,7 @@ class _HomePageState extends State<HomePage> {
                                     Positioned(
                                       left: 25,
                                       child: Image.asset(
-                                        'assets/img/categories/avatar.png',
+                                        'assets/img/categories/mickey_17.png',
                                         height: 150,
                                       ),
                                     ),
@@ -569,7 +577,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "Aventure-se!",
+                                "Para cair de rir!",
                                 style:
                                     Theme.of(context).textTheme.headlineLarge,
                               ),

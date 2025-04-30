@@ -38,4 +38,18 @@ class FilmeController{
       throw Exception("Falha ao carregar filme!");
     }
   }
+
+  Future<Filme> getFilmById(int id) async{
+    final response = await http.get(
+      Uri.parse('https://api.themoviedb.org/3/movie/$id?language=en-US&api_key=$apiKey'),
+    );
+
+    if (response.statusCode == 200) {
+      print(jsonDecode(response.body) as Map<String, dynamic>);
+      return Filme.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    }
+    else {
+      throw Exception("Falha ao carregar filme!");
+    }
+  }
 }
