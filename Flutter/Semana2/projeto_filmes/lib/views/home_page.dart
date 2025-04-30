@@ -164,7 +164,6 @@ class _HomePageState extends State<HomePage> {
                                               .toList();
                                       return CarouselSlider(
                                         carouselController: _titleController,
-
                                         items:
                                             movieTitles.map((title) {
                                               return Builder(
@@ -270,10 +269,21 @@ class _HomePageState extends State<HomePage> {
                           posterPaths.map((posterPath) {
                             return Builder(
                               builder: (BuildContext context) {
-                                return Image.network(
-                                  'https://image.tmdb.org/t/p/w500$posterPath',
-                                  width: MediaQuery.of(context).size.width,
-                                  fit: BoxFit.cover,
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/detalhes',
+                                      arguments: {
+                                        //'filmeId': filme.id,
+                                      },
+                                    );
+                                  },
+                                  child: Image.network(
+                                    'https://image.tmdb.org/t/p/w500$posterPath',
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.cover,
+                                  ),
                                 );
                               },
                             );
