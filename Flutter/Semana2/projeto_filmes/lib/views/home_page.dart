@@ -1,8 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_filmes/controller/filme_controller.dart';
 import 'package:projeto_filmes/model/filme.dart';
 import 'package:projeto_filmes/theme/app_colors.dart';
+import 'package:projeto_filmes/widgets/triangle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -240,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                     AppColors.complementary200,
                   ],
                   begin: Alignment.topLeft,
-                  end: Alignment.bottomRight
+                  end: Alignment.bottomRight,
                 ),
               ),
               child: FutureBuilder<List<Filme>>(
@@ -248,28 +251,23 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final List<String?> posterPaths =
-                    snapshot.data!
-                        .map<String?>((filme) => filme.posterPath)
-                        .toList();
+                        snapshot.data!
+                            .map<String?>((filme) => filme.posterPath)
+                            .toList();
 
                     return CarouselSlider(
                       items:
-                      posterPaths.map((posterPath) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w500$posterPath',
-                                width:
-                                MediaQuery.of(
-                                  context,
-                                ).size.width,
-                                fit: BoxFit.cover,
-                              ),
+                          posterPaths.map((posterPath) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Image.network(
+                                  'https://image.tmdb.org/t/p/w500$posterPath',
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             );
-                          },
-                        );
-                      }).toList(),
+                          }).toList(),
                       options: CarouselOptions(
                         height: 150,
                         viewportFraction: 0.3,
@@ -278,9 +276,7 @@ class _HomePageState extends State<HomePage> {
                         reverse: false,
                         autoPlay: true,
                         autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(
-                          milliseconds: 800,
-                        ),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         scrollDirection: Axis.horizontal,
                       ),
@@ -288,9 +284,302 @@ class _HomePageState extends State<HomePage> {
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
-
                   return const CircularProgressIndicator();
                 },
+              ),
+            ),
+            SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  alignment: Alignment.center,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      bottomLeft: Radius.circular(50),
+                    ),
+                  ),
+                  child: Text(
+                    'Não curtiu nenhum?\n Que tal procurar mais a fundo?',
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(
+              height: 1400,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    child: Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: math.pi / 2,
+                          child: Triangle(
+                            color: AppColors.complementary400,
+                            height: 475,
+                            width: 415,
+                            elevation: 100,
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                height: 175,
+                                width: 185,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 0,
+                                      child: Transform.rotate(
+                                        angle: math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: Transform.rotate(
+                                        angle: -math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/o_principe_esquecido.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 25,
+                                      child: Image.asset(
+                                        'assets/img/categories/avatar.png',
+                                        height: 150,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Aventure-se!",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 300,
+                    child: Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: -math.pi / 2,
+                          child: Triangle(
+                            color: AppColors.complementary400,
+                            height: 475,
+                            width: 415,
+                            elevation: 100,
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          right: 0,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                height: 175,
+                                width: 185,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 0,
+                                      child: Transform.rotate(
+                                        angle: math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: Transform.rotate(
+                                        angle: -math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/o_principe_esquecido.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 25,
+                                      child: Image.asset(
+                                        'assets/img/categories/avatar.png',
+                                        height: 150,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Aventure-se!",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 600,
+                    child: Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: math.pi / 2,
+                          child: Triangle(
+                            color: AppColors.complementary400,
+                            height: 475,
+                            width: 415,
+                            elevation: 100,
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                height: 175,
+                                width: 185,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 0,
+                                      child: Transform.rotate(
+                                        angle: math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: Transform.rotate(
+                                        angle: -math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/o_principe_esquecido.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 25,
+                                      child: Image.asset(
+                                        'assets/img/categories/avatar.png',
+                                        height: 150,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Aventure-se!",
+                                style:
+                                Theme.of(context).textTheme.headlineLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 900,
+                    child: Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: -math.pi / 2,
+                          child: Triangle(
+                            color: AppColors.complementary400,
+                            height: 475,
+                            width: 415,
+                            elevation: 100,
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          right: 0,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                height: 175,
+                                width: 185,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 0,
+                                      child: Transform.rotate(
+                                        angle: math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/os_tres_mosqueteiros.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: Transform.rotate(
+                                        angle: -math.pi / 12,
+                                        child: Image.asset(
+                                          'assets/img/categories/o_principe_esquecido.png',
+                                          height: 150,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 25,
+                                      child: Image.asset(
+                                        'assets/img/categories/avatar.png',
+                                        height: 150,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Aventure-se!",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
