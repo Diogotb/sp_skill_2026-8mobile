@@ -8,7 +8,7 @@ class FilmeController{
   final String apiKey = 'a3fdce28f42e800b6e80f97aacf5f0f4';
   Future<List<Filme>> getFilmes() async {
     final response = await http.get(
-      Uri.parse('https://api.themoviedb.org/3/discover/movie?include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=$apiKey'),
+      Uri.parse('https://api.themoviedb.org/3/discover/movie?include_video=false&language=pt-BR&page=1&sort_by=popularity.desc&api_key=$apiKey'),
     );
 
     if (response.statusCode == 200) {
@@ -25,7 +25,7 @@ class FilmeController{
   Future<List<Filme>> getMostRated() async{
     final currentYear = DateTime.now().year;
     final response = await http.get(
-      Uri.parse('https://api.themoviedb.org/3/discover/movie?include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=$apiKey&primary_release_year=$currentYear&vote_average.gte=7.0&vote_count.gte=100'),
+      Uri.parse('https://api.themoviedb.org/3/discover/movie?include_video=false&language=pt-BR&page=1&sort_by=popularity.desc&api_key=$apiKey&primary_release_year=$currentYear&vote_average.gte=7.0&vote_count.gte=100'),
     );
 
     if (response.statusCode == 200) {
@@ -41,7 +41,7 @@ class FilmeController{
 
   Future<Filme> getFilmById(int id) async{
     final response = await http.get(
-      Uri.parse('https://api.themoviedb.org/3/movie/$id?language=en-US&api_key=$apiKey'),
+      Uri.parse('https://api.themoviedb.org/3/movie/$id?language=pt-BR&api_key=$apiKey'),
     );
 
     if (response.statusCode == 200) {

@@ -51,22 +51,24 @@ class _HomePageState extends State<HomePage> {
                           future: futureFilmes,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              final List<Filme> filmes =
-                                  snapshot
-                                      .data!;
-
+                              final List<Filme> filmes = snapshot.data!;
                               return CarouselSlider(
                                 carouselController: _posterController,
                                 items:
                                     filmes.map((filme) {
-                                      // Use a lista de filmes aqui
                                       return Builder(
                                         builder: (BuildContext context) {
                                           return Container(
                                             color: Colors.black,
                                             child: GestureDetector(
                                               onTap: () {
-                                                Navigator.pushNamed(context, '/detalhes', arguments: {'filme': filme.id});
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  '/detalhes',
+                                                  arguments: {
+                                                    'filmeId': filme.id,
+                                                  },
+                                                );
                                               },
                                               child: Image.network(
                                                 'https://image.tmdb.org/t/p/w500${filme.posterPath}',
