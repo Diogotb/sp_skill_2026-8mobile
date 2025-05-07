@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
+      initialRoute: '/splashScreen',
       routes: {
         '/splashScreen': (context) => SplashScreen(),
         '/': (context) => HomePage(),
