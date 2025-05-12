@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       initialRoute: '/splashScreen',
       routes: {
         '/splashScreen': (context) => SplashScreen(),
