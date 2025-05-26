@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AppBar(
-      backgroundColor: theme.primaryColor,
+      backgroundColor: theme.colorScheme.primary,
       elevation: 20,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -17,7 +17,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text("MyNotes"),
       centerTitle: true,
-      leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+      leading: Builder(builder: (context) {
+        return IconButton(onPressed: () {
+          Scaffold.of(context).openDrawer();
+        }, icon: Icon(Icons.menu, size: 40, color: Colors.white,));
+      }),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 15, bottom: 15),

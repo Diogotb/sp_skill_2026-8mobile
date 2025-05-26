@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BackButton extends StatelessWidget {
-  const BackButton({super.key});
+class CustomBackButton extends StatelessWidget {
+  const CustomBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class BackButton extends StatelessWidget {
           elevation: 5,
         ),
         onPressed: () {
-          Navigator.pop(context, true);
+          Navigator.pop(context);
         },
         child: Text(
           "Voltar",
