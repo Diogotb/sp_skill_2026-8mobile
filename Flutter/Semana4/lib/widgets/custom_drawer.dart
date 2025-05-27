@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes/themes/app_colors.dart';
+import 'package:my_notes/views/add_note_page.dart';
 import 'package:my_notes/views/home_page.dart';
 import 'package:my_notes/widgets/custom_drawer_button.dart';
 
@@ -36,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
             icon: Icons.note_add,
             color: AppColors.accent,
             onTap: () {
-              Navigator.pushNamed(context, '/note/add');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddNotePage(categoryId: 1),));
             },
           ),
           SizedBox(height: 40),

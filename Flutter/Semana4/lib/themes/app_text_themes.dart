@@ -13,9 +13,9 @@ class AppTextThemes {
     fontSize: 24,
   );
 
-  static const bodyLarge = TextStyle(fontFamily: 'Open Sans', fontSize: 16);
+  static const bodyLarge = TextStyle(fontFamily: 'Open Sans', fontSize: 18);
 
   static const bodyMedium = TextStyle(fontFamily: 'Open Sans', fontSize: 14);
 
-  static const bodySmall = TextStyle(fontFamily: 'Open Sans', fontSize: 12);
+  static const bodySmall = TextStyle(fontFamily: 'Open Sans', fontSize: 10);
 }

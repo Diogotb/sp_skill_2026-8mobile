@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Note{
-  final int id;
+  final int? id;
   final String title;
   final IconData? icon;
   final DateTime date;
   final String content;
   final int? categoryId;
 
-  const Note({required this.id,required this.title, required this.icon, required this.date, required this.content, this.categoryId});
+  const Note({this.id,required this.title, required this.icon, required this.date, required this.content, this.categoryId});
 
   Map<String, Object?> toMap(){
     return {
@@ -18,7 +18,7 @@ class Note{
       'icon_font_family': icon?.fontFamily,
       'date': date.millisecondsSinceEpoch,
       'content': content,
-      'categoryId': categoryId,
+      'category_Id': categoryId,
     };
   }
 
@@ -44,7 +44,7 @@ class Note{
       icon: iconData,
       date: dateTime,
       content: ['content'] as String,
-      categoryId: ['categoryId'] as int,
+      categoryId: ['category_Id'] as int,
     );
   }
 }

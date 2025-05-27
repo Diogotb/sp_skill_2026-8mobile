@@ -19,4 +19,8 @@ class NoteController{
   Future<int> deleteNote(int id) async{
     return await _dbHelper.deleteNote(id);
   }
+
+  Future<List<Note>> fetchNotesByCategory(int categoryId) async {
+    return await _dbHelper.getNotesByCategory(categoryId);
+  }
 }

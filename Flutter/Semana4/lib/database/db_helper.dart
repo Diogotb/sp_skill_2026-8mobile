@@ -30,30 +30,35 @@ class MyNotesDBHelper {
 
   Future<void> _onCreateDB(Database db, int version) async {
     await db.execute('''
-
     CREATE TABLE categories(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    color INTEGER,
-    )
-    
-    CREATE TABLE notes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    title TEXT, 
-    icon_code_point INTEGER, 
-    icon_font_family TEXT, 
-    date INTEGER, 
-    content TEXT,
-    category_id INTEGER,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      color INTEGER,
+      description TEXT
     );
-    ''');
+  ''');
+
+    await db.execute('''
+    CREATE TABLE notes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      title TEXT, 
+      icon_code_point INTEGER, 
+      icon_font_family TEXT, 
+      date INTEGER, 
+      content TEXT,
+      category_id INTEGER,
+      FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+    );
+  ''');
     print("Banco criado");
 
     await db.insert('categories', {
       'name': 'Notas Rápidas',
-      'color': Colors.lightBlue.value,
+      'color': Colors.purple[200]?.toARGB32(),
+      'description': 'Para anotações rápidas sem uma categoria exata!'
     });
+
+    print("Categoria default criada");
   }
 
   Future<int> insertNote(Note note) async {
@@ -116,5 +121,15 @@ class MyNotesDBHelper {
   Future<int>deleteCategory(int id) async {
     final db = await database;
     return await db.delete('categories', where: 'id=?', whereArgs: [id]);
+  }
+
+  Future<List<Note>> getNotesByCategory(int categoryId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'notes',
+      where: 'category_id = ?',
+      whereArgs: [categoryId],
+    );
+    return maps.map((e) => Note.fromMap(e)).toList();
   }
 }

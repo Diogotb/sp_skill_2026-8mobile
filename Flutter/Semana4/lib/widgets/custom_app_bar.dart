@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  String? title;
+  CustomAppBar({this.title,super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String actualTitle = title ?? "MyApp";
     final theme = Theme.of(context);
     return AppBar(
       backgroundColor: theme.colorScheme.primary,
@@ -15,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottomLeft: Radius.circular(15),
         ),
       ),
-      title: Text("MyNotes"),
+      title: Text(actualTitle),
       centerTitle: true,
       leading: Builder(builder: (context) {
         return IconButton(onPressed: () {

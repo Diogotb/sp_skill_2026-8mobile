@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:my_notes/themes/app_colors.dart';
 import 'package:my_notes/themes/app_text_themes.dart';
 import 'package:my_notes/themes/theme_provider.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
     final isDark = themeProvider.themeMode == ThemeMode.dark;
 
     return MaterialApp(
+      localizationsDelegates: const [
+        FlutterQuillLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
       title: 'My Notes',
       theme: ThemeData(
@@ -66,7 +70,6 @@ class MyApp extends StatelessWidget {
         '/caderno': (context) => CadernoPage(),
         '/categories': (context) => CategoriesPage(),
         '/category/add': (context) => AddCategoryPage(),
-        '/note/add': (context) => AddNotePage(),
       },
     );
   }

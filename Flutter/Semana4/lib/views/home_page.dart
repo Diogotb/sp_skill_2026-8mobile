@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_notes/themes/app_colors.dart';
 import 'package:my_notes/themes/theme_provider.dart';
+import 'package:my_notes/views/add_note_page.dart';
 import 'package:my_notes/widgets/custom_app_bar.dart';
 import 'package:my_notes/widgets/custom_drawer.dart';
 import 'package:my_notes/widgets/custom_icon_button.dart';
@@ -31,7 +32,9 @@ class _HomePageState extends State<HomePage> {
               height: 114,
               width: 350,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddNotePage(categoryId: 1,),));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
                   backgroundColor: AppColors.accent,
