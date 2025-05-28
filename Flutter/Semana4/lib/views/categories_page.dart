@@ -3,11 +3,13 @@ import 'package:my_notes/controllers/category_controller.dart';
 import 'package:my_notes/models/category_model.dart';
 import 'package:my_notes/themes/app_colors.dart';
 import 'package:my_notes/views/category_details_page.dart';
+import 'package:my_notes/views/home_page.dart';
 import 'package:my_notes/widgets/custom_app_bar.dart';
 import 'package:my_notes/widgets/custom_back_button.dart';
 import 'package:my_notes/widgets/custom_container.dart';
 import 'package:my_notes/widgets/custom_drawer.dart';
 import 'package:my_notes/widgets/heading_container.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});
@@ -57,7 +59,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBackButton(),
+                CustomBackButton(page: HomePage(),),
 
                 SizedBox(height: 24,),
 

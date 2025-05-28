@@ -30,4 +30,13 @@ class Category {
   String toString() {
     return 'Category {id: $id, name: $name';
   }
+
+  Category copyWith({String? name, String? description, int? color, int? id}) {
+    return Category(
+      name: name ?? this.name,
+      description: description ?? this.description,
+      color: color ?? this.color,
+      id: id ?? this.id,
+    );
+  }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key});
+  final Widget? page;
+  const CustomBackButton({this.page,super.key});
 
 
 
@@ -19,6 +20,7 @@ class CustomBackButton extends StatelessWidget {
           elevation: 5,
         ),
         onPressed: () {
+          page != null ? Navigator.push(context, MaterialPageRoute(builder: (context) => page!)) :
           Navigator.pop(context);
         },
         child: Text(

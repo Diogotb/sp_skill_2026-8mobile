@@ -8,7 +8,8 @@ class CustomContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final Widget? child;
-  const CustomContainer({this.width, this.child, this.height, super.key});
+  final double? padding;
+  const CustomContainer({this.width, this.child, this.height, super.key, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class CustomContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         elevation: 5,
         child: Container(
+          padding: EdgeInsets.all(padding ?? 0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: themeProvider.themeMode == ThemeMode.dark ? AppColors.widgetBackgroundDark : AppColors.widgetBackgroundLight
