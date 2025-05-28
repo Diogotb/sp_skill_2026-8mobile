@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:my_notes/controllers/note_controller.dart';
 import 'package:my_notes/database/db_helper.dart';
 import 'package:my_notes/models/note_model.dart';
+import 'package:my_notes/views/category_details_page.dart';
 import 'package:my_notes/widgets/custom_back_button.dart';
 import 'package:my_notes/widgets/custom_small_button.dart';
 import 'package:my_notes/widgets/icon_picker.dart';
@@ -14,7 +18,8 @@ import '../widgets/custom_drawer.dart';
 
 class AddNotePage extends StatefulWidget {
   int? categoryId;
-  AddNotePage({super.key, this.categoryId});
+  int? noteId;
+  AddNotePage({super.key, this.categoryId, this.noteId});
 
   @override
   State<AddNotePage> createState() => _AddNotePageState();
@@ -23,12 +28,14 @@ class AddNotePage extends StatefulWidget {
 class _AddNotePageState extends State<AddNotePage> {
   final MyNotesDBHelper _dbHelper = MyNotesDBHelper();
   final TextEditingController _titleController = TextEditingController();
-  final QuillController _quillController = QuillController.basic();
+  QuillController _quillController = QuillController.basic();
 
   IconData? _selectedIcon;
 
   final CategoryController _categoryController = CategoryController();
+  final NoteController _noteController = NoteController();
 
+  Note? _note;
   List<Category> _categories = [];
   Category? _selectedCategory;
   bool _isLoading = true;
@@ -37,6 +44,56 @@ class _AddNotePageState extends State<AddNotePage> {
   void initState() {
     super.initState();
     _loadCategories();
+    _loadNote().then((_) {
+      if(_note != null) {
+        _updateLastAccessed(widget.noteId!, DateTime.now());
+      }
+    });
+  }
+
+  Future<void> _loadNote() async {
+    setState(() => _isLoading = true);
+
+    try {
+      _note = await _noteController.findNoteById(widget.noteId!);
+
+      if (_note == null) {
+        throw Exception('Nota não encontrada no banco');
+      }
+
+      _titleController.text = _note!.title;
+      _selectedIcon        = _note!.icon;
+
+      List<dynamic> deltaJson;
+      try {
+        deltaJson = jsonDecode(_note!.content);
+      } on FormatException {
+        throw Exception('Conteúdo da nota não é JSON válido');
+      }
+
+      Document doc;
+      try {
+        doc = Document.fromJson(deltaJson);
+      } catch (e) {
+        throw Exception('JSON não é Delta válido: $e');
+      }
+
+      _quillController = QuillController(
+        document: doc,
+        selection: const TextSelection.collapsed(offset: 0),
+      );
+      setState(() {});
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> _loadCategories() async {
@@ -115,6 +172,11 @@ class _AddNotePageState extends State<AddNotePage> {
     );
   }
 
+  Future<void> _updateLastAccessed(int id, DateTime timestamp) async {
+    timestamp = DateTime.now();
+    await _dbHelper.updateNoteLastAccessed(widget.noteId!, DateTime.now());
+  }
+
   Future<void> _salvarNota() async {
     if (_titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,21 +192,34 @@ class _AddNotePageState extends State<AddNotePage> {
       return;
     }
 
-    final note = Note(
-      title: _titleController.text.trim(),
-      content: _quillController.document.toDelta().toJson().toString(),
-      icon: _selectedIcon,
-      categoryId: _selectedCategory!.id,
-      date: DateTime.now(),
-    );
+    final deltaJson = _quillController.document.toDelta().toJson();
 
-    await _dbHelper.insertNote(note);
+    if(_note == null){
+      final note = Note(
+        title: _titleController.text.trim(),
+        content: jsonEncode(deltaJson),
+        icon: _selectedIcon,
+        categoryId: _selectedCategory!.id,
+        date: DateTime.now(),
+      );
+      await _dbHelper.insertNote(note);
+    } else{
+      final note = Note(
+        id: _note?.id,
+        title: _titleController.text.trim(),
+        content: jsonEncode(deltaJson),
+        icon: _selectedIcon,
+        categoryId: _selectedCategory!.id,
+        date: DateTime.now(),
+      );
+      await _dbHelper.updateNote(note);
+    }
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Nota salva com sucesso!")),
     );
 
-    Navigator.pop(context);
+    Navigator.pushNamed(context, '/caderno');
   }
 
   @override
@@ -160,17 +235,22 @@ class _AddNotePageState extends State<AddNotePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CustomBackButton(),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 6),
-                    decoration: BoxDecoration(
-                      color: Color(_selectedCategory!.color),
-                      borderRadius: BorderRadius.circular(15),
+                  GestureDetector(
+                    onTap: (){
+                      _salvarNota();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryDetailsPage(category: _selectedCategory!,),));
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 6),
+                      decoration: BoxDecoration(
+                        color: Color(_selectedCategory!.color),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      width: 100,
+                      height: 45,
+                      child: Text(_selectedCategory!.name, textAlign: TextAlign.center,),
                     ),
-                    width: 100,
-                    height: 45,
-                    child: Text(_selectedCategory!.name, textAlign: TextAlign.center,),
                   ),
                   CustomSmallButton(
                     label: "Mudar Categoria",

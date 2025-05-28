@@ -13,8 +13,10 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -30,16 +32,12 @@ class MyApp extends StatelessWidget {
     final isDark = themeProvider.themeMode == ThemeMode.dark;
 
     return MaterialApp(
-      localizationsDelegates: const [
-        FlutterQuillLocalizations.delegate,
-      ],
+      localizationsDelegates: const [FlutterQuillLocalizations.delegate],
       debugShowCheckedModeBanner: false,
       title: 'My Notes',
       theme: ThemeData(
         pageTransitionsTheme: PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-          }
+          builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder()},
         ),
         textTheme: TextTheme(
           headlineLarge: AppTextThemes.headingLarge,

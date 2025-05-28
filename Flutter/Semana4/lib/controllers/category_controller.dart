@@ -20,4 +20,8 @@ class CategoryController{
   Future<int> deleteCategory(int id) async{
     return await _dbHelper.deleteCategory(id);
   }
+
+  Future<int> updateCategory(Category category) async {
+    return await _dbHelper.updateCategory(category);
+  }
 }

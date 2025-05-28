@@ -47,6 +47,7 @@ class MyNotesDBHelper {
       date INTEGER, 
       content TEXT,
       category_id INTEGER,
+      last_accessed INTEGER,
       FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
     );
   ''');
@@ -130,6 +131,63 @@ class MyNotesDBHelper {
       where: 'category_id = ?',
       whereArgs: [categoryId],
     );
-    return maps.map((e) => Note.fromMap(e)).toList();
+    print("Retornando lista com Notas");
+    print(maps);
+    if(maps.isNotEmpty) {
+      return maps.map((e) => Note.fromMap(e)).toList();
+    } else {
+      print('Nenhuma nota encontrada');
+      return [];
+    }
   }
+
+  Future<int> updateCategory(Category category) async {
+    final db = await database;
+
+    return await db.update(
+      'categories',
+      category.toMap(),
+      where: 'id = ?',
+      whereArgs: [category.id],
+    );
+  }
+
+  Future<int> updateNote(Note note) async {
+    final db = await database;
+
+    print("Atualizando a nota ${note.id}");
+    return await db.update(
+      'notes',
+      note.toMap(),
+      where: 'id = ?',
+      whereArgs: [note.id],
+    );
+  }
+
+  Future<void> updateNoteLastAccessed(int id, DateTime timestamp) async {
+    final db = await database;
+
+    await db.update(
+      'notes',
+      {
+        'last_accessed': timestamp.millisecondsSinceEpoch,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<List<Note>> getRecentNotes({int limit =5}) async{
+    final db = await database;
+    final maps = await db.query(
+      'notes',
+      orderBy: 'last_accessed DESC',
+      limit: limit,
+    );
+
+    return List.generate(maps.length, (i){
+      return Note.fromMap(maps[i]);
+    });
+  }
+
 }
