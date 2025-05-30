@@ -1,0 +1,211 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Amante da Arte",
+      "email": "arte@email.com",
+      "password": "password123"
+    }
+  ],
+  "artworks": [
+    {
+      "id": 301,
+      "title": "Mona Lisa",
+      "artistId": 401,
+      "year": "c. 1503–1506",
+      "technique": "Óleo sobre painel de álamo",
+      "dimensions": "77 cm × 53 cm",
+      "description": "A Mona Lisa é talvez o retrato mais famoso do mundo, pintado por Leonardo da Vinci durante o Renascimento italiano. Conhecida por seu sorriso enigmático, a obra continua a cativar espectadores e estudiosos.",
+      "gallery": "Museu do Louvre, Paris",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "isFeatured": true
+    },
+    {
+      "id": 302,
+      "title": "A Noite Estrelada",
+      "artistId": 402,
+      "year": "1889",
+      "technique": "Óleo sobre tela",
+      "dimensions": "73.7 cm × 92.1 cm",
+      "description": "Pintada por Vincent van Gogh, 'A Noite Estrelada' retrata a vista da janela de seu quarto no asilo em Saint-Rémy-de-Provence, pouco antes do nascer do sol, com a adição de uma vila imaginária.",
+      "gallery": "Museu de Arte Moderna, Nova York",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "isFeatured": true
+    },
+    {
+      "id": 303,
+      "title": "O Grito",
+      "artistId": 403,
+      "year": "1893",
+      "technique": "Óleo, têmpera e pastel sobre cartão",
+      "dimensions": "91 cm × 73.5 cm",
+      "description": "Uma das obras mais icônicas de Edvard Munch, 'O Grito' simboliza a ansiedade do homem moderno. Existem várias versões da obra.",
+      "gallery": "Galeria Nacional, Oslo",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/800px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "isFeatured": false
+    },
+    {
+      "id": 304,
+      "title": "Guernica",
+      "artistId": 404,
+      "year": "1937",
+      "technique": "Óleo sobre tela",
+      "dimensions": "349.3 cm × 776.6 cm",
+      "description": "Uma poderosa pintura anti-guerra de Pablo Picasso, retratando o bombardeio de Guernica durante a Guerra Civil Espanhola. É uma das declarações anti-guerra mais conhecidas da história da arte.",
+      "gallery": "Museo Reina Sofía, Madrid",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mural_del_Gernika.jpg/1280px-Mural_del_Gernika.jpg",
+      "isFeatured": true
+    },
+    {
+      "id": 305,
+      "title": "A Persistência da Memória",
+      "artistId": 405,
+      "year": "1931",
+      "technique": "Óleo sobre tela",
+      "dimensions": "24 cm × 33 cm",
+      "description": "Famosa obra surrealista de Salvador Dalí, apresentando relógios derretidos em uma paisagem desolada. Simboliza a relatividade do tempo e da memória.",
+      "gallery": "Museu de Arte Moderna, Nova York",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Persistence_of_Memory.jpg/800px-The_Persistence_of_Memory.jpg",
+      "isFeatured": false
+    },
+     {
+      "id": 306,
+      "title": "Impressão, nascer do sol",
+      "artistId": 406,
+      "year": "1872",
+      "technique": "Óleo sobre tela",
+      "dimensions": "48 cm × 63 cm",
+      "description": "Pintura de Claude Monet que deu nome ao movimento impressionista. Retrata o porto de Le Havre ao nascer do sol.",
+      "gallery": "Musée Marmottan Monet, Paris",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_soleil_levant.jpg/800px-Monet_-_Impression%2C_soleil_levant.jpg",
+      "isFeatured": false
+    }
+  ],
+  "artists": [
+    {
+      "id": 401,
+      "name": "Leonardo da Vinci",
+      "birthDate": "1452",
+      "deathDate": "1519",
+      "nationality": "Italiano",
+      "period": "Alto Renascimento",
+      "biography": "Leonardo da Vinci foi um polímata italiano do Alto Renascimento, ativo como pintor, desenhista, engenheiro, cientista, teórico, escultor e arquiteto. Suas obras mais famosas incluem a Mona Lisa e A Última Ceia.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Francesco_Melzi_-_Portrait_of_Leonardo_da_Vinci.jpg/800px-Francesco_Melzi_-_Portrait_of_Leonardo_da_Vinci.jpg"
+    },
+    {
+      "id": 402,
+      "name": "Vincent van Gogh",
+      "birthDate": "1853",
+      "deathDate": "1890",
+      "nationality": "Holandês",
+      "period": "Pós-Impressionismo",
+      "biography": "Vincent Willem van Gogh foi um pintor pós-impressionista holandês que postumamente se tornou uma das figuras mais famosas e influentes da história da arte ocidental. Em uma década, ele criou cerca de 2.100 obras de arte, incluindo cerca de 860 pinturas a óleo, a maioria delas nos últimos dois anos de sua vida.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/800px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg"
+    },
+    {
+      "id": 403,
+      "name": "Edvard Munch",
+      "birthDate": "1863",
+      "deathDate": "1944",
+      "nationality": "Norueguês",
+      "period": "Simbolismo, Expressionismo",
+      "biography": "Edvard Munch foi um pintor simbolista norueguês. Sua obra mais conhecida, 'O Grito', tornou-se uma das imagens mais icônicas da arte mundial.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Edvard_Munch_1895_Selvportrett_med_sigarett.jpg/800px-Edvard_Munch_1895_Selvportrett_med_sigarett.jpg"
+    },
+    {
+      "id": 404,
+      "name": "Pablo Picasso",
+      "birthDate": "1881",
+      "deathDate": "1973",
+      "nationality": "Espanhol",
+      "period": "Cubismo, Surrealismo",
+      "biography": "Pablo Ruiz Picasso foi um pintor, escultor, ceramista, cenógrafo, poeta e dramaturgo espanhol que passou a maior parte de sua vida adulta na França. Considerado um dos artistas mais influentes do século XX, ele é conhecido por co-fundar o movimento cubista.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Pablo_picasso_1.jpg/800px-Pablo_picasso_1.jpg"
+    },
+    {
+      "id": 405,
+      "name": "Salvador Dalí",
+      "birthDate": "1904",
+      "deathDate": "1989",
+      "nationality": "Espanhol",
+      "period": "Surrealismo",
+      "biography": "Salvador Domingo Felipe Jacinto Dalí i Domènech, Marquês de Dalí de Púbol, foi um proeminente pintor surrealista espanhol nascido em Figueres, Catalunha, Espanha. Dalí era um desenhista habilidoso, mais conhecido pelas imagens impressionantes e bizarras em sua obra surrealista.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Salvador_Dal%C3%AD_1939.jpg/800px-Salvador_Dal%C3%AD_1939.jpg"
+    },
+    {
+      "id": 406,
+      "name": "Claude Monet",
+      "birthDate": "1840",
+      "deathDate": "1926",
+      "nationality": "Francês",
+      "period": "Impressionismo",
+      "biography": "Oscar-Claude Monet foi um fundador da pintura impressionista francesa, e o praticante mais consistente e prolífico da filosofia do movimento de expressar as percepções diante da natureza, especialmente como aplicada à pintura de paisagem plein-air.",
+      "portraitUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Claude_Monet_1899_Nadar_crop.jpg/800px-Claude_Monet_1899_Nadar_crop.jpg"
+    }
+  ],
+  "exhibitions": [
+    {
+      "id": 501,
+      "title": "Mestres do Renascimento",
+      "gallery": "Galeria Nacional de Arte",
+      "startDate": "2024-01-15",
+      "endDate": "2024-06-30",
+      "status": "current",
+      "description": "Explore as obras-primas de Leonardo da Vinci, Michelangelo e Rafael nesta exposição imersiva sobre o auge do Renascimento italiano.",
+      "bannerUrl": "https://via.placeholder.com/1280x400.png?text=Renascimento+Banner",
+      "artworkIds": [301]
+    },
+    {
+      "id": 502,
+      "title": "A Luz do Impressionismo",
+      "gallery": "Museu de Belas Artes",
+      "startDate": "2024-07-15",
+      "endDate": "2024-12-15",
+      "status": "upcoming",
+      "description": "Uma jornada através das paisagens luminosas e retratos vibrantes dos principais artistas impressionistas, incluindo Monet, Renoir e Degas.",
+      "bannerUrl": "https://via.placeholder.com/1280x400.png?text=Impressionismo+Banner",
+      "artworkIds": [306]
+    },
+    {
+      "id": 503,
+      "title": "Visões Surrealistas",
+      "gallery": "Centro de Arte Moderna",
+      "startDate": "2023-09-01",
+      "endDate": "2023-12-31",
+      "status": "past",
+      "description": "Mergulhe nos mundos oníricos e subconscientes de Salvador Dalí, René Magritte e Max Ernst.",
+      "bannerUrl": "https://via.placeholder.com/1280x400.png?text=Surrealismo+Banner",
+      "artworkIds": [305]
+    }
+  ],
+  "user_favorites": [
+    {
+      "id": 1,
+      "userId": 1,
+      "artworkId": 301
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "artworkId": 304
+    }
+  ],
+  "user_collections": [
+    {
+      "id": 601,
+      "userId": 1,
+      "name": "Meus Renascentistas",
+      "description": "Obras favoritas do período Renascentista.",
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "artworkIds": [301]
+    },
+    {
+      "id": 602,
+      "userId": 1,
+      "name": "Impactantes",
+      "description": "Obras que me marcaram profundamente.",
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mural_del_Gernika.jpg/300px-Mural_del_Gernika.jpg",
+      "artworkIds": [304, 303]
+    }
+  ]
+}
