@@ -1,0 +1,49 @@
+name: artgallery_explorer
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5
+  shared_preferences: ^2.5.3
+  flutter_native_splash: ^2.4.6
+  http: ^1.4.0
+  carousel_slider: ^5.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter_launcher_icons:
+  android: true
+  image_path: "assets/images/logo.png"
+  android_adaptive_icon_background: "#FFFFFF"
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/merriweather/merriweather-regular.ttf
+        - asset: assets/fonts/merriweather/merriweather-bold.ttf
+          weight: 700
+
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/lato-regular.ttf
+        - asset: assets/fonts/lato/lato-italic.ttf
+          style: italic
