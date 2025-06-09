@@ -40,7 +40,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Obras em Destaque',
+                        'Artistas',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
