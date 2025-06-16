@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../themes/theme_provider.dart';
+import '../providers/theme_provider.dart';
 
 class IconPickerWidget extends StatelessWidget {
   final List<IconData> icons;

@@ -1,0 +1,1 @@
+# Este diretório está direcionado à anotações sobre o estudo de Design Thinking, com ênfase no sistema de design Material da Google.

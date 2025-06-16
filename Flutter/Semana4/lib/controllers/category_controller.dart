@@ -1,6 +1,5 @@
 import 'package:my_notes/database/db_helper.dart';
 import 'package:my_notes/models/category_model.dart';
-import 'package:my_notes/models/note_model.dart';
 
 class CategoryController{
   final MyNotesDBHelper _dbHelper = MyNotesDBHelper();
