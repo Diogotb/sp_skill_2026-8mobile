@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:my_notes/themes/app_colors.dart';
 import 'package:my_notes/themes/app_text_themes.dart';
-import 'package:my_notes/themes/theme_provider.dart';
+import 'package:my_notes/providers/theme_provider.dart';
 import 'package:my_notes/views/add_category_page.dart';
 import 'package:my_notes/views/add_note_page.dart';
 import 'package:my_notes/views/caderno_page.dart';

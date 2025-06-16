@@ -4,7 +4,7 @@ import 'package:my_notes/widgets/custom_drawer.dart';
 import 'package:my_notes/widgets/custom_icon_button.dart';
 import 'package:provider/provider.dart';
 
-import '../themes/theme_provider.dart';
+import '../providers/theme_provider.dart';
 
 class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({super.key});
