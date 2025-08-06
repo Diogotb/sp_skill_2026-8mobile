@@ -1,8 +1,6 @@
-import 'package:isar/isar.dart';
 
-@collection
 class User{
-  Id id = Isar.autoIncrement;
+  int? id;
   String? username;
   String? password;
 }
