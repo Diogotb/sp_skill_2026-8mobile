@@ -11,7 +11,6 @@ class GameService {
 
     if (response.statusCode == 200){
       final List<dynamic> data = jsonDecode(response.body);
-      print('Jogos recebidos: $data');
       return data.map((json) => Game.fromJson(json)).toList();
     } else
       throw Exception("Erro ao carregar jogo");
@@ -29,6 +28,21 @@ class GameService {
     }
   }
 
+  Future<void> toggleFavorite(int id, bool isFavorite) async {
+    final url = Uri.parse('http://10.0.2.2:3000/games/$id');
+    final response = await http.patch(
+      url,
+      body: jsonEncode({"isFavorite": isFavorite}),
+    );
+
+    if (response.statusCode == 200) {
+      print('Favorito atualizado com sucesso!');
+    } else {
+      print('Erro ao atualizar favorito: ${response.statusCode}');
+    }
+  }
+
+
   Future<Game> createGame(Game game) async{
     final response = await http.post(
       Uri.parse('http://10.0.0.2.2:3000/games'),
@@ -39,6 +53,20 @@ class GameService {
       return Game.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } else{
       throw Exception("Erro ao criar jogo");
+    }
+  }
+
+  void toggleCollection(int id, bool isOnCollection) async {
+    final url = Uri.parse('http://10.0.2.2:3000/games/$id');
+    final response = await http.patch(
+      url,
+      body: jsonEncode({"inCollection": isOnCollection}),
+    );
+
+    if (response.statusCode == 200) {
+      print('Coleção atualizada com sucesso!');
+    } else {
+      print('Erro ao atualizar coleção: ${response.statusCode}');
     }
   }
 }

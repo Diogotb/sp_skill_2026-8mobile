@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gamedex/providers/game_provider.dart';
 import 'package:gamedex/widgets/custom_app_bar.dart';
+import 'package:gamedex/widgets/custom_bottom_navigation_bar.dart';
 import 'package:gamedex/widgets/custom_drawer.dart';
 import 'package:gamedex/widgets/game_container.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Timer? _debounce;
+
+  int _selectedIndex = 0;
 
   @override
   void dispose() {
@@ -43,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final gameProvider = Provider.of<GameProvider>(context);
-    final games = gameProvider.games;
+    final collectionGames = gameProvider.filteredCollectionGames;
 
     String getResultText(bool isSearching, int resultCount) {
       if (!isSearching) return "";
@@ -51,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return "Resultados encontrados: $resultCount";
     }
 
-    final resultText = getResultText(gameProvider.isSearching, games.length);
+    final resultText = getResultText(gameProvider.isSearching, collectionGames.length);
 
     return Scaffold(
       appBar: CustomAppBar(title: "GameDex"),
@@ -106,9 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 325,
                     child: CarouselSlider.builder(
-                      itemCount: gameProvider.games.length,
+                      itemCount: collectionGames.length,
                       itemBuilder: (context, index, realIndex) {
-                        final game = gameProvider.games[index];
+                        final game = collectionGames[index];
                         return GameContainer(game: game);
                       },
                       options: CarouselOptions(
@@ -118,12 +121,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         viewportFraction: 0.7,
                         aspectRatio: 16 / 9,
                         initialPage: 0,
-                        enableInfiniteScroll: !gameProvider.isSearching,
+                        enableInfiniteScroll: false,
                       ),
                     ),
                   ),
                 ],
               ),
+
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: _selectedIndex, onTap: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+
+        if (_selectedIndex == 1){
+          Navigator.pushNamed(context, '/search');
+        } else if (_selectedIndex == 2){
+          Navigator.pushNamed(context, '/explore');
+        }
+      },),
     );
   }
 }

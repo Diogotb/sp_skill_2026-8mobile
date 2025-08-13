@@ -125,7 +125,7 @@ class CustomDrawer extends StatelessWidget {
           label: "Favoritos",
           colorScheme: colorScheme,
           onTap: () {
-            // TODO: Navegação
+            Navigator.pushNamed(context, "/favorites");
           },
         ),
         _drawerItem(
