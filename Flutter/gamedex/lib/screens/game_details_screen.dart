@@ -4,6 +4,12 @@ import 'package:gamedex/services/game_service.dart';
 import 'package:gamedex/widgets/custom_app_bar.dart';
 import 'package:gamedex/widgets/custom_bottom_navigation_bar.dart';
 import 'package:gamedex/widgets/custom_drawer.dart';
+import 'package:gamedex/widgets/review_list.dart';
+import 'package:gamedex/widgets/star_rating.dart';
+
+import '../models/review.dart';
+import '../services/review_service.dart';
+import '../services/user_service.dart';
 
 class GameDetailsScreen extends StatefulWidget {
   Game game;
@@ -26,7 +32,10 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
 
   int? _selectedIndex = null;
 
+  double rating = 2.5;
+  TextEditingController _reviewController = TextEditingController();
   GameService gameService = GameService();
+
   @override
   Widget build(BuildContext context) {
     Game game = widget.game;
@@ -84,7 +93,8 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                               Expanded(
                                 child: Text(
                                   game.title,
-                                  style: Theme.of(context).textTheme.titleMedium,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -102,10 +112,16 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                             "Nota: ${game.rating.toStringAsFixed(1)}",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const SizedBox(height: 24,),
-                          Text("Descrição", style: Theme.of(context).textTheme.titleMedium,),
-                          const SizedBox(height: 8,),
-                          Text(game.description, style: Theme.of(context).textTheme.bodySmall,)
+                          const SizedBox(height: 24),
+                          Text(
+                            "Descrição",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            game.description,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
                         ],
                       ),
                     ),
@@ -113,26 +129,32 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                 ),
               ),
 
-              SizedBox(height: 48,),
-              Text("Reviews", style: Theme.of(context).textTheme.titleMedium,),
-
-              SizedBox(height: 12,),
-
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: game.reviews.length,
-          itemBuilder: (context, index) {
-            final review = game.reviews[index];
-            return ListTile(
-              leading: CircleAvatar(
-                child: Text(review['user']![0]),
+              SizedBox(height: 48),
+              Text("Reviews", style: Theme.of(context).textTheme.titleLarge),
+              SizedBox(height: 8),
+              Text(
+                "Deixe sua marca, faça uma review",
+                style: Theme.of(context).textTheme.titleSmall,
               ),
-              title: Text(review['user']!),
-              subtitle: Text(review['comment']!),
-            );
-          },
-        ),
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap: () {
+                  _showRatingModal(context);
+                },
+                child: TextField(
+                  readOnly: true,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.rate_review),
+                    labelText: "O que você achou do jogo?",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              ReviewList(gameId: game.id),
             ],
           ),
         ),
@@ -163,17 +185,27 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return ScaleTransition(scale: animation, child: child);
               },
-              child: isOnCollection
-                  ? Icon(Icons.delete_forever, key:ValueKey('collection'), color: Colors.redAccent)
-                  : Icon(Icons.add, key: ValueKey('not_collection'), color: Theme.of(context).colorScheme.primary),
+              child:
+                  isOnCollection
+                      ? Icon(
+                        Icons.delete_forever,
+                        key: ValueKey('collection'),
+                        color: Colors.redAccent,
+                      )
+                      : Icon(
+                        Icons.add,
+                        key: ValueKey('not_collection'),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
             ),
             onPressed: () {
               setState(() {
                 isOnCollection = !isOnCollection;
                 gameService.toggleCollection(game.id, isOnCollection);
               });
-            },),
-          const SizedBox(height: 8,),
+            },
+          ),
+          const SizedBox(height: 8),
           FloatingActionButton(
             heroTag: "FavoriteFAB",
             child: AnimatedSwitcher(
@@ -181,18 +213,106 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return ScaleTransition(scale: animation, child: child);
               },
-              child: isFavorite
-                  ? Icon(Icons.favorite, key: ValueKey('favorite'), color: Colors.redAccent)
-                  : Icon(Icons.favorite_border_outlined, key: ValueKey('not_favorite'), color: Colors.redAccent),
+              child:
+                  isFavorite
+                      ? Icon(
+                        Icons.favorite,
+                        key: ValueKey('favorite'),
+                        color: Colors.redAccent,
+                      )
+                      : Icon(
+                        Icons.favorite_border_outlined,
+                        key: ValueKey('not_favorite'),
+                        color: Colors.redAccent,
+                      ),
             ),
             onPressed: () {
               setState(() {
                 isFavorite = !isFavorite;
                 gameService.toggleFavorite(game.id, isFavorite);
               });
-          },),
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void _showRatingModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        double tempRating = 3.0;
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.4,
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Escrevendo review",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    StarRating(
+                      rating: tempRating,
+                      onRatingChanged: (newRating) {
+                        setState(() {
+                          tempRating = newRating;
+                        });
+                        rating = newRating;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      maxLines: 4,
+                      controller: _reviewController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+
+                        label: Row(
+                          children: [
+                            Icon(Icons.rate_review_outlined),
+                            Text(
+                              " Descreva o que você sentiu sobre esse jogo.",
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))), backgroundColor: Theme.of(context).colorScheme.primaryContainer),
+                        onPressed: _sendReview,
+                        child: Text("Enviar"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _sendReview() {
+    final review = Review(userId: "1", gameId: widget.game.id, text: _reviewController.text.trim(), rating: rating);
+    ReviewService().createReview(review);
+   setState(() {
+
+   });
+
+   Navigator.of(context).pop();
   }
 }

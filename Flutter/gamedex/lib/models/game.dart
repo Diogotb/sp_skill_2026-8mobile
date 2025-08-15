@@ -1,5 +1,5 @@
 class Game {
-  final int id;
+  final String id;
   final String title;
   final String description;
   final String genero;
@@ -13,7 +13,7 @@ class Game {
 
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
-      id: int.parse(json['id']) ?? 0,
+      id: json['id'] ?? "",
       title: json['title'] ?? 'Título desconhecido',
       description: json['description'] ?? 'Sem descrição',
       genero: json['genero'] ?? 'Indefinido',

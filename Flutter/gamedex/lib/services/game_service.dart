@@ -16,9 +16,9 @@ class GameService {
       throw Exception("Erro ao carregar jogo");
   }
 
-  Future<Game> fetchGameById(int id) async {
+  Future<Game> fetchGameById(String id) async {
     final response = await http.get(
-       Uri.parse('http://10.0.2.2:3000/games/$id')
+       Uri.parse('http://10.0.2.2:3000/games/5')
     );
 
     if (response.statusCode == 200){
@@ -28,10 +28,11 @@ class GameService {
     }
   }
 
-  Future<void> toggleFavorite(int id, bool isFavorite) async {
+  Future<void> toggleFavorite(String id, bool isFavorite) async {
     final url = Uri.parse('http://10.0.2.2:3000/games/$id');
     final response = await http.patch(
       url,
+      headers: {"Content-Type": "application/json"},
       body: jsonEncode({"isFavorite": isFavorite}),
     );
 
@@ -56,7 +57,7 @@ class GameService {
     }
   }
 
-  void toggleCollection(int id, bool isOnCollection) async {
+  void toggleCollection(String id, bool isOnCollection) async {
     final url = Uri.parse('http://10.0.2.2:3000/games/$id');
     final response = await http.patch(
       url,

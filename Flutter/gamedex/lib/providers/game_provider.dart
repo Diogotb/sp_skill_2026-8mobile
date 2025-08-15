@@ -68,6 +68,18 @@ class GameProvider with ChangeNotifier {
       return a.rating.compareTo(b.rating);
     });
 
+    if(jogosRecomendados.length <= 10){
+      games.sort((a, b) {
+        return b.rating.compareTo(a.rating);
+      },);
+
+      games.forEach((game) {
+        if(!game.inCollection && !jogosRecomendados.contains(game)){
+          jogosRecomendados.add(game);
+        }
+      },);
+    }
+
     return jogosRecomendados;
   }
 
@@ -118,7 +130,7 @@ class GameProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Game>? getGameById(int id){
+  Future<Game>? getGameById(String id){
     final game = _gameService.fetchGameById(id);
     if (game != null){
       return game;
