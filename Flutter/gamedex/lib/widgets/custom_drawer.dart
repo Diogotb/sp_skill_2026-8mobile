@@ -1,16 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gamedex/services/auth_service.dart';
 
 class CustomDrawer extends StatelessWidget {
-  final String userName;
-  final String userEmail;
-  final String avatarUrl;
+  final _auth = AuthService();
 
-  const CustomDrawer({
-    Key? key,
-    required this.userName,
-    required this.userEmail,
-    required this.avatarUrl,
-  }) : super(key: key);
+  CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class CustomDrawer extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              colorScheme.surface, // em vez de cinza/black fixo
+              colorScheme.surface,
               colorScheme.background,
             ],
             begin: Alignment.topCenter,
@@ -46,63 +42,100 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, ColorScheme colorScheme) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.2),
-            blurRadius: 12,
-            offset: Offset(0, 3),
-          )
-        ],
-        border: Border.all(color: colorScheme.onSurface.withOpacity(0.12)),
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 38,
-            backgroundImage: NetworkImage(avatarUrl),
-            backgroundColor: colorScheme.primaryContainer,
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        child: Text("User not logged in"),
+      );
+    }
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text("User data not found"),
+          );
+        }
+
+        final userData = snapshot.data!.data() as Map<String, dynamic>;
+        final userName = userData['username'] ?? 'No Name';
+        final userEmail = userData['email'] ?? 'No Email';
+        final userPhoto = userData['avatarUrl'] ?? '';
+
+        return Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: colorScheme.onSurface.withOpacity(0.2),
+                blurRadius: 12,
+                offset: Offset(0, 3),
+              )
+            ],
+            border: Border.all(color: colorScheme.onSurface.withOpacity(0.12)),
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userName,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
-                    letterSpacing: 0.5,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 5,
-                        color: colorScheme.onSurface.withOpacity(0.6),
-                      )
-                    ],
-                  ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 38,
+                backgroundImage:
+                userPhoto.isNotEmpty ? NetworkImage(userPhoto) : null,
+                backgroundColor: colorScheme.primaryContainer,
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      userName,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface,
+                        letterSpacing: 0.5,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 5,
+                            color: colorScheme.onSurface.withOpacity(0.6),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      userEmail,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: colorScheme.onSurface.withOpacity(0.75),
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  userEmail,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: colorScheme.onSurface.withOpacity(0.75),
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 0.3,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

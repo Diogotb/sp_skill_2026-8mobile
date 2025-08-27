@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/projeto_filmes/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/projeto_filmes/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/projeto_filmes/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/teste_funcionalidades_nativas/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/teste_funcionalidades_nativas/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana2/teste_funcionalidades_nativas/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana4/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana4/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Flutter/Semana4/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado01/cine_findr/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado01/cine_findr/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado01/cine_findr/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Simulado/Simulado02/entrega/artgallery_explorer/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Testing/16.06/introducao_unit_testing/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Testing/16.06/introducao_unit_testing/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Testing/16.06/introducao_unit_testing/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

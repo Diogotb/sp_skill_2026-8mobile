@@ -1,0 +1,27 @@
+{
+  "authors": [
+    "SuperPaintman"
+  ],
+  "contributors": [
+    "jerold",
+    "Stargator",
+    "kytrinyx"
+  ],
+  "files": {
+    "solution": [
+      "lib/hamming.dart"
+    ],
+    "test": [
+      "test/hamming_test.dart"
+    ],
+    "example": [
+      ".meta/lib/example.dart"
+    ],
+    "invalidator": [
+      "pubspec.yaml"
+    ]
+  },
+  "blurb": "Calculate the Hamming distance between two DNA strands.",
+  "source": "The Calculating Point Mutations problem at Rosalind",
+  "source_url": "https://rosalind.info/problems/hamm/"
+}

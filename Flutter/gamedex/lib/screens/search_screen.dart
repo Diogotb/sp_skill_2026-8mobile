@@ -24,10 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: "GameDex"),
       drawer: CustomDrawer(
-        userName: "Teste",
-        userEmail: "teste@example.com",
-        avatarUrl:
-            "https://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon",
+
       ),
 
       body: Padding(

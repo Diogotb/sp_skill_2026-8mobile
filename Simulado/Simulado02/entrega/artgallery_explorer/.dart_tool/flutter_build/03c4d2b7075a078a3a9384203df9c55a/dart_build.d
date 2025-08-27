@@ -1,0 +1,1 @@
+ C:\\Users\\Instrutor\\Documents\\sp_skillMobile\\sp_skill_2026-8mobile\\Simulado\\Simulado02\\entrega\\artgallery_explorer\\.dart_tool\\flutter_build\\03c4d2b7075a078a3a9384203df9c55a\\dart_build_result.json: 

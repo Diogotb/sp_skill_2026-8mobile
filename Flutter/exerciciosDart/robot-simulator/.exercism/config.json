@@ -1,0 +1,25 @@
+{
+  "authors": [
+    "Corentin-Leffy"
+  ],
+  "contributors": [
+    "Stargator",
+    "kytrinyx"
+  ],
+  "files": {
+    "solution": [
+      "lib/robot_simulator.dart"
+    ],
+    "test": [
+      "test/robot_simulator_test.dart"
+    ],
+    "example": [
+      ".meta/lib/example.dart"
+    ],
+    "invalidator": [
+      "pubspec.yaml"
+    ]
+  },
+  "blurb": "Write a robot simulator.",
+  "source": "Inspired by an interview question at a famous company."
+}

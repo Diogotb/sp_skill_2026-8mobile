@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 400), () {
-      Provider.of<GameProvider>(context, listen: false).searchGames(query);
+      Provider.of<GameProvider>(context, listen: false).searchGamesInCollection(query);
     });
   }
 
@@ -59,10 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: "GameDex"),
       drawer: CustomDrawer(
-        userName: "Teste",
-        userEmail: "teste@example.com",
-        avatarUrl:
-            "https://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon",
+
       ),
       body:
           gameProvider.isLoading

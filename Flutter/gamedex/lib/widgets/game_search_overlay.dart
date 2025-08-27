@@ -22,12 +22,15 @@ class _GameSearchOverlayState extends State<GameSearchOverlay> {
 
     if (_controller.text.isEmpty || _suggestions.isEmpty) return;
 
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+
+    final size = renderBox.size;
+
     _overlayEntry = OverlayEntry(
-      builder: (context) {
-        RenderBox renderBox = context.findRenderObject() as RenderBox;
-        final size = renderBox.size;
+      builder: (overlayContext) {
         return Positioned(
-          width: size.width - 32,
+          width: size.width,
           child: CompositedTransformFollower(
             link: _layerLink,
             showWhenUnlinked: false,
@@ -62,6 +65,7 @@ class _GameSearchOverlayState extends State<GameSearchOverlay> {
 
     Overlay.of(context).insert(_overlayEntry!);
   }
+
 
   @override
   Widget build(BuildContext context) {
