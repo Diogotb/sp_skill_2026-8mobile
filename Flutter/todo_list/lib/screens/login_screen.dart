@@ -15,7 +15,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final _userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-      body: Column(children: [
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
         ElevatedButton(onPressed: () {
           _userProvider.register("pedibr5@gmail.com", "Pedro123");
           Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));

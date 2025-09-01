@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/providers/theme_provider.dart';
+import 'package:todo_list/providers/user_profile_provider.dart';
+import 'package:todo_list/providers/user_provider.dart';
 import 'package:todo_list/screens/home_screen.dart';
 import 'package:todo_list/screens/login_screen.dart';
 import 'package:todo_list/services/auth_service.dart';
@@ -11,14 +13,23 @@ import 'package:todo_list/theme/app_colors.dart';
 import 'package:todo_list/theme/app_text_themes.dart';
 
 void main() async {
-  Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => ThemeProvider())
-  ], child: MyApp(),);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => UserProfileProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   final _authService = AuthService();
