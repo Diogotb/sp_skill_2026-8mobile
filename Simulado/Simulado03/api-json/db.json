@@ -1,0 +1,301 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Carlos Silva",
+            "email": "carlos@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=carlos@email.com",
+            "goals": {
+                "dailySteps": 10000,
+                "dailyCaloriesBurn": 500,
+                "dailyCaloriesConsume": 2200
+            }
+        },
+        {
+            "id": 2,
+            "name": "Ana Pereira",
+            "email": "ana@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=ana@email.com",
+            "goals": {
+                "dailySteps": 8000,
+                "dailyCaloriesBurn": 400,
+                "dailyCaloriesConsume": 1800
+            }
+        },
+        {
+            "id": 3,
+            "name": "Bruno Costa",
+            "email": "bruno@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=bruno@email.com",
+            "goals": {
+                "dailySteps": 12000,
+                "dailyCaloriesBurn": 600,
+                "dailyCaloriesConsume": 2500
+            }
+        },
+        {
+            "id": 4,
+            "name": "Daniela Lima",
+            "email": "daniela@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=daniela@email.com",
+            "goals": {
+                "dailySteps": 7500,
+                "dailyCaloriesBurn": 350,
+                "dailyCaloriesConsume": 1900
+            }
+        },
+        {
+            "id": 5,
+            "name": "Eduardo Martins",
+            "email": "eduardo@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=eduardo@email.com",
+            "goals": {
+                "dailySteps": 9000,
+                "dailyCaloriesBurn": 450,
+                "dailyCaloriesConsume": 2100
+            }
+        },
+        {
+            "id": 6,
+            "name": "Fernanda Souza",
+            "email": "fernanda@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=fernanda@email.com",
+            "goals": {
+                "dailySteps": 10000,
+                "dailyCaloriesBurn": 500,
+                "dailyCaloriesConsume": 2000
+            }
+        },
+        {
+            "id": 7,
+            "name": "Gustavo Rocha",
+            "email": "gustavo@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=gustavo@email.com",
+            "goals": {
+                "dailySteps": 5000,
+                "dailyCaloriesBurn": 250,
+                "dailyCaloriesConsume": 1700
+            }
+        },
+        {
+            "id": 8,
+            "name": "Helena Almeida",
+            "email": "helena@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=helena@email.com",
+            "goals": {
+                "dailySteps": 11000,
+                "dailyCaloriesBurn": 550,
+                "dailyCaloriesConsume": 2300
+            }
+        },
+        {
+            "id": 9,
+            "name": "Igor Santos",
+            "email": "igor@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=igor@email.com",
+            "goals": {
+                "dailySteps": 8500,
+                "dailyCaloriesBurn": 425,
+                "dailyCaloriesConsume": 2000
+            }
+        },
+        {
+            "id": 10,
+            "name": "Julia Ribeiro",
+            "email": "julia@email.com",
+            "password": "password123",
+            "avatarUrl": "https://i.pravatar.cc/150?u=julia@email.com",
+            "goals": {
+                "dailySteps": 9500,
+                "dailyCaloriesBurn": 475,
+                "dailyCaloriesConsume": 1950
+            }
+        }
+    ],
+    "activities": [
+        {
+            "id": 101,
+            "userId": 1,
+            "type": "Corrida",
+            "duration": "00:30:00",
+            "distance": 5.2,
+            "caloriesBurned": 350,
+            "date": "2024-05-20T08:00:00Z"
+        },
+        {
+            "id": 102,
+            "userId": 1,
+            "type": "Musculação",
+            "duration": "01:00:00",
+            "distance": null,
+            "caloriesBurned": 250,
+            "date": "2024-05-20T18:00:00Z"
+        },
+        {
+            "id": 103,
+            "userId": 2,
+            "type": "Ciclismo",
+            "duration": "00:45:00",
+            "distance": 15,
+            "caloriesBurned": 400,
+            "date": "2024-05-20T19:00:00Z"
+        },
+        {
+            "id": 104,
+            "userId": 1,
+            "type": "Corrida",
+            "duration": "00:25:00",
+            "distance": 4.5,
+            "caloriesBurned": 300,
+            "date": "2024-05-19T08:00:00Z"
+        },
+        {
+            "id": 105,
+            "userId": 3,
+            "type": "Natação",
+            "duration": "00:50:00",
+            "distance": 2,
+            "caloriesBurned": 500,
+            "date": "2024-05-20T07:00:00Z"
+        }
+    ],
+    "meals": [
+        {
+            "id": 201,
+            "userId": 1,
+            "type": "Café da Manhã",
+            "date": "2024-05-20T07:00:00Z",
+            "foodItems": [
+                {
+                    "foodId": 301,
+                    "name": "Ovo Cozido",
+                    "quantity": 2,
+                    "calories": 156
+                },
+                {
+                    "foodId": 305,
+                    "name": "Pão Integral",
+                    "quantity": 1,
+                    "calories": 80
+                }
+            ]
+        },
+        {
+            "id": 202,
+            "userId": 1,
+            "type": "Almoço",
+            "date": "2024-05-20T12:30:00Z",
+            "foodItems": [
+                {
+                    "foodId": 302,
+                    "name": "Peito de Frango Grelhado (100g)",
+                    "quantity": 1.5,
+                    "calories": 248
+                },
+                {
+                    "foodId": 303,
+                    "name": "Arroz Integral (100g)",
+                    "quantity": 1,
+                    "calories": 111
+                },
+                {
+                    "foodId": 304,
+                    "name": "Brócolis Cozido (100g)",
+                    "quantity": 1,
+                    "calories": 35
+                }
+            ]
+        },
+        {
+            "id": 203,
+            "userId": 2,
+            "type": "Jantar",
+            "date": "2024-05-20T20:00:00Z",
+            "foodItems": [
+                {
+                    "foodId": 306,
+                    "name": "Salmão Grelhado (100g)",
+                    "quantity": 1,
+                    "calories": 208
+                },
+                {
+                    "foodId": 307,
+                    "name": "Salada Verde com Azeite",
+                    "quantity": 1,
+                    "calories": 150
+                }
+            ]
+        }
+    ],
+    "foods": [
+        {
+            "id": 301,
+            "name": "Ovo Cozido",
+            "caloriesPerUnit": 78,
+            "unit": "unidade"
+        },
+        {
+            "id": 302,
+            "name": "Peito de Frango Grelhado (100g)",
+            "caloriesPerUnit": 165,
+            "unit": "porção"
+        },
+        {
+            "id": 303,
+            "name": "Arroz Integral (100g)",
+            "caloriesPerUnit": 111,
+            "unit": "porção"
+        },
+        {
+            "id": 304,
+            "name": "Brócolis Cozido (100g)",
+            "caloriesPerUnit": 35,
+            "unit": "porção"
+        },
+        {
+            "id": 305,
+            "name": "Pão Integral",
+            "caloriesPerUnit": 80,
+            "unit": "fatia"
+        },
+        {
+            "id": 306,
+            "name": "Salmão Grelhado (100g)",
+            "caloriesPerUnit": 208,
+            "unit": "porção"
+        },
+        {
+            "id": 307,
+            "name": "Salada Verde com Azeite",
+            "caloriesPerUnit": 150,
+            "unit": "prato"
+        },
+        {
+            "id": 308,
+            "name": "Banana",
+            "caloriesPerUnit": 105,
+            "unit": "unidade"
+        },
+        {
+            "id": 309,
+            "name": "Maçã",
+            "caloriesPerUnit": 95,
+            "unit": "unidade"
+        },
+        {
+            "id": 310,
+            "name": "Whey Protein",
+            "caloriesPerUnit": 120,
+            "unit": "dose"
+        }
+    ]
+}
