@@ -2,18 +2,16 @@ class User {
   final String? id;
   final String? username;
   final String? password;
+  final String? avatarUrl;
 
-  User({
-    this.id,
-    this.username,
-    this.password,
-  });
+  User({this.id, this.username, this.password, this.avatarUrl});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map<String, dynamic> json, String id) {
     return User(
-      id: json['id'],
+      id: id,
       username: json['username'],
       password: json['password'],
+      avatarUrl: json['avatarUrl'],
     );
   }
 
@@ -22,6 +20,7 @@ class User {
       'id': id,
       'username': username,
       'password': password,
+      'avatarUrl': avatarUrl,
     };
   }
 }

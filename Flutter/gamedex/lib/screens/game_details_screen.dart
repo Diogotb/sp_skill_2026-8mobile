@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gamedex/models/game.dart';
+import 'package:gamedex/providers/game_provider.dart';
 import 'package:gamedex/services/game_service.dart';
 import 'package:gamedex/widgets/custom_app_bar.dart';
 import 'package:gamedex/widgets/custom_bottom_navigation_bar.dart';
 import 'package:gamedex/widgets/custom_drawer.dart';
 import 'package:gamedex/widgets/review_list.dart';
 import 'package:gamedex/widgets/star_rating.dart';
+import 'package:provider/provider.dart';
 
 import '../models/review.dart';
+import '../providers/review_provider.dart';
 import '../services/review_service.dart';
 import '../services/user_service.dart';
 
@@ -20,14 +24,10 @@ class GameDetailsScreen extends StatefulWidget {
 }
 
 class _GameDetailsScreenState extends State<GameDetailsScreen> {
-  late bool isFavorite;
-  late bool isOnCollection;
 
   @override
   void initState() {
     super.initState();
-    isFavorite = widget.game.isFavorite;
-    isOnCollection = widget.game.inCollection;
   }
 
   int? _selectedIndex = null;
@@ -39,13 +39,10 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     Game game = widget.game;
+    final reviewProvider = Provider.of<ReviewProvider>(context);
     return Scaffold(
       appBar: CustomAppBar(title: "GameDex"),
       drawer: CustomDrawer(
-        userName: "Teste",
-        userEmail: "teste@example.com",
-        avatarUrl:
-            "https://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon",
       ),
 
       body: SingleChildScrollView(
@@ -178,59 +175,63 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            heroTag: "CollectionFAB",
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return ScaleTransition(scale: animation, child: child);
-              },
-              child:
-                  isOnCollection
+          Consumer<GameProvider>(
+            builder: (context, gameProvider, child) {
+              final isInCollection = gameProvider.isInCollection(widget.game.id);
+
+              return FloatingActionButton(
+                heroTag: "CollectionFAB",
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    return ScaleTransition(scale: animation, child: child);
+                  },
+                  child: isInCollection
                       ? Icon(
-                        Icons.delete_forever,
-                        key: ValueKey('collection'),
-                        color: Colors.redAccent,
-                      )
+                    Icons.delete_forever,
+                    key: ValueKey('collection'),
+                    color: Colors.redAccent,
+                  )
                       : Icon(
-                        Icons.add,
-                        key: ValueKey('not_collection'),
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-            ),
-            onPressed: () {
-              setState(() {
-                isOnCollection = !isOnCollection;
-                gameService.toggleCollection(game.id, isOnCollection);
-              });
+                    Icons.add,
+                    key: ValueKey('not_collection'),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onPressed: () {
+                  gameProvider.toggleCollection(widget.game.id);
+                },
+              );
             },
           ),
           const SizedBox(height: 8),
-          FloatingActionButton(
-            heroTag: "FavoriteFAB",
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return ScaleTransition(scale: animation, child: child);
-              },
-              child:
-                  isFavorite
+          Consumer<GameProvider>(
+            builder: (context, gameProvider, child) {
+              final isFavorite = gameProvider.isFavorite(widget.game.id);
+
+              return FloatingActionButton(
+                heroTag: "FavoriteFAB",
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    return ScaleTransition(scale: animation, child: child);
+                  },
+                  child: isFavorite
                       ? Icon(
-                        Icons.favorite,
-                        key: ValueKey('favorite'),
-                        color: Colors.redAccent,
-                      )
+                    Icons.favorite,
+                    key: ValueKey('favorite'),
+                    color: Colors.redAccent,
+                  )
                       : Icon(
-                        Icons.favorite_border_outlined,
-                        key: ValueKey('not_favorite'),
-                        color: Colors.redAccent,
-                      ),
-            ),
-            onPressed: () {
-              setState(() {
-                isFavorite = !isFavorite;
-                gameService.toggleFavorite(game.id, isFavorite);
-              });
+                    Icons.favorite_border_outlined,
+                    key: ValueKey('not_favorite'),
+                    color: Colors.redAccent,
+                  ),
+                ),
+                onPressed: () {
+                  gameProvider.toggleFavorite(widget.game.id);
+                },
+              );
             },
           ),
         ],
@@ -306,13 +307,21 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
     );
   }
 
-  void _sendReview() {
-    final review = Review(userId: "1", gameId: widget.game.id, text: _reviewController.text.trim(), rating: rating);
-    ReviewService().createReview(review);
-   setState(() {
+  void _sendReview() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final newReview = Review(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      gameId: widget.game.id,
+      userId: userId,
+      text: _reviewController.text.trim(),
+      rating: rating,
+      createdAt: DateTime.now(),
+    );
 
-   });
+    final reviewProvider = Provider.of<ReviewProvider>(context, listen: false);
+    await reviewProvider.addReview(newReview);
 
-   Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
+
 }

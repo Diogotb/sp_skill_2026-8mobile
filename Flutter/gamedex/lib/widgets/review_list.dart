@@ -8,36 +8,32 @@ import '../services/user_service.dart';
 
 class ReviewList extends StatelessWidget {
   final String gameId;
-
   const ReviewList({required this.gameId, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Review>>(
-      future: ReviewService().fetchReviewsByGameId(gameId),
-      builder: (context, reviewSnapshot) {
-        if (reviewSnapshot.connectionState == ConnectionState.waiting) {
+    return FutureBuilder<List<User>>(
+      future: UserService().fetchUsers(), // fetch users only once
+      builder: (context, userSnapshot) {
+        if (!userSnapshot.hasData) {
           return Center(child: CircularProgressIndicator());
-        } else if (reviewSnapshot.hasError) {
-          return Center(child: Text('Erro ao carregar reviews ${reviewSnapshot.error}'));
-        } else if (!reviewSnapshot.hasData || reviewSnapshot.data!.isEmpty) {
-          return Center(child: Text('Nenhuma review ainda, seja o primeiro!'));
         }
 
-        final reviews = reviewSnapshot.data!;
+        final users = userSnapshot.data!;
 
-        return FutureBuilder<List<User>>(
-          future: UserService().fetchUsers(),
-          builder: (context, userSnapshot) {
-            if (userSnapshot.connectionState == ConnectionState.waiting) {
+        return StreamBuilder<List<Review>>(
+          stream: ReviewService().listenToReviewsByGameId(gameId),
+          builder: (context, reviewSnapshot) {
+            if (!reviewSnapshot.hasData) {
               return Center(child: CircularProgressIndicator());
-            } else if (userSnapshot.hasError) {
-              return Center(child: Text('Erro ao carregar usuários'));
-            } else if (!userSnapshot.hasData || userSnapshot.data!.isEmpty) {
-              return Center(child: Text('Nenhum usuário encontrado'));
             }
 
-            final users = userSnapshot.data!;
+            final reviews = reviewSnapshot.data!;
+            if (reviews.isEmpty) {
+              return Center(
+                child: Text('Nenhuma review ainda, seja o primeiro!'),
+              );
+            }
 
             return ListView.builder(
               shrinkWrap: true,
@@ -46,25 +42,60 @@ class ReviewList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final review = reviews[index];
                 final user = users.firstWhere(
-                      (u) => u.id == review.userId,
-                  orElse: () => User(username: "Desconhecido"),
+                  (u) => u.id == review.userId,
+                  orElse: () => User(username: "Desconhecido", avatarUrl: ""),
                 );
 
                 return ListTile(
                   contentPadding: EdgeInsets.all(8.0),
                   leading: CircleAvatar(
-                    child: Text(user.username != null && user.username!.isNotEmpty
-                        ? user.username![0]
-                        : "?"),
+                    backgroundImage:
+                        (user.avatarUrl != null && user.avatarUrl!.isNotEmpty)
+                            ? NetworkImage(user.avatarUrl!)
+                            : null,
+                    child:
+                        (user.avatarUrl == null || user.avatarUrl!.isEmpty)
+                            ? Text(
+                              (user.username != null &&
+                                      user.username!.isNotEmpty)
+                                  ? user.username![0]
+                                  : "?",
+                            )
+                            : null,
                   ),
+
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(user.username ?? "Desconhecido", style:Theme.of(context).textTheme.titleSmall),
-                      StarRating(readOnly: true, rating: review.rating,onRatingChanged: (rating) {}, starSize: 15,)
+                      Text(
+                        user.username!,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      StarRating(
+                        readOnly: true,
+                        rating: review.rating,
+                        onRatingChanged: (_) {},
+                        starSize: 15,
+                      ),
                     ],
                   ),
-                  subtitle: Text(review.text ?? "", style:Theme.of(context).textTheme.bodySmall),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (review.createdAt != null)
+                        Text(
+                          "${review.createdAt!.day}/${review.createdAt!.month}/${review.createdAt!.year}",
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                        ),
+                      SizedBox(height: 4),
+                      Text(
+                        review.text ?? "",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 );
               },
             );

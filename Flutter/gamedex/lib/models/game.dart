@@ -5,11 +5,8 @@ class Game {
   final String genero;
   final String image;
   final double rating;
-  final bool isFavorite;
-  final bool inCollection;
-  final List reviews;
 
-  const Game({required this.id, required this.title, required this.description ,required this.genero, required this.image, required this.rating, required this.isFavorite, required this.reviews, required this.inCollection});
+  const Game({required this.id, required this.title, required this.description ,required this.genero, required this.image, required this.rating});
 
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
@@ -19,9 +16,6 @@ class Game {
       genero: json['genero'] ?? 'Indefinido',
       image: json['image'] ?? '',
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
-      isFavorite: json['isFavorite'] ?? false,
-      inCollection: json['inCollection'] ?? false,
-      reviews: json['reviews'] ?? [],
     );
   }
 
@@ -33,9 +27,24 @@ class Game {
       'genero': genero,
       'image': image,
       'rating': rating,
-      'isFavorite': isFavorite,
-      'inCollection': inCollection,
-      "reviews": reviews,
     };
+  }
+
+  Game copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? genero,
+    String? image,
+    double? rating,
+  }) {
+    return Game(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      genero: genero ?? this.genero,
+      image: image ?? this.image,
+      rating: rating ?? this.rating
+    );
   }
 }
