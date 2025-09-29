@@ -1,6 +1,10 @@
+import 'package:fit_trackr/auth/services/auth_service.dart';
 import 'package:fit_trackr/presentation/widgets/custom_button.dart';
 import 'package:fit_trackr/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../auth_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,6 +14,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _authService = AuthService();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -35,8 +40,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    // TODO: modulo 3, por enqt só prossegue para dashbaord
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    final user = await _authService.register(email, password, name);
+    if(user != null){
+      Provider.of<AuthProvider>(context, listen: false).login(user);
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ocorreu um erro ao registrar")));
+    }
   }
 
   @override

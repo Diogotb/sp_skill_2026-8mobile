@@ -1,0 +1,1 @@
+enum ActivityType {corrida, ciclismo, musculacao, natacao}

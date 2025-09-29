@@ -1,7 +1,11 @@
-import 'package:fit_trackr/features/auth/cadastro_screen.dart';
+import 'package:fit_trackr/auth/screens/register_screen.dart';
+import 'package:fit_trackr/auth/services/auth_service.dart';
 import 'package:fit_trackr/presentation/widgets/custom_button.dart';
 import 'package:fit_trackr/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _authService = AuthService();
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
 
@@ -24,9 +29,14 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       return;
     }
+    final user = await _authService.login(email, senha);
 
-    // TODO: MÓDULO 3, por enqt só segue até o dashboard
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    if(user != null){
+      Provider.of<AuthProvider>(context, listen: false).login(user);
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ocorreu um erro ao processar o login")));
+    }
   }
 
 

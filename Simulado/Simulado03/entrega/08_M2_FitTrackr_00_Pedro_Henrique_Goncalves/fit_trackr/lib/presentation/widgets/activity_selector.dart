@@ -1,15 +1,29 @@
+import 'package:fit_trackr/core/enums/activity_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-enum ActivityType { swimming, gym, running, biking }
-
 class ActivitySelector extends StatefulWidget {
+  final void Function(ActivityType) onActivityChanged; // callback para informar o valor selecionado
+  final ActivityType initialActivity;
+
+  ActivitySelector({
+    Key? key,
+    required this.onActivityChanged,
+    this.initialActivity = ActivityType.corrida,
+  }) : super(key: key);
+
   @override
   _ActivitySelectorState createState() => _ActivitySelectorState();
 }
 
 class _ActivitySelectorState extends State<ActivitySelector> {
-  ActivityType? selectedActivity;
+  late ActivityType selectedActivity;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedActivity = widget.initialActivity; // inicializa com valor passado
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +31,19 @@ class _ActivitySelectorState extends State<ActivitySelector> {
     final colorInactive = Colors.grey;
 
     final activityIcons = {
-      ActivityType.swimming: {
+      ActivityType.natacao: {
         'filled': 'assets/icons/swimmer_filled.svg',
         'outlined': 'assets/icons/swimmer_outlined.svg',
       },
-      ActivityType.gym: {
+      ActivityType.musculacao: {
         'filled': 'assets/icons/gym_filled.svg',
         'outlined': 'assets/icons/gym_outlined.svg',
       },
-      ActivityType.running: {
+      ActivityType.corrida: {
         'filled': 'assets/icons/running_filled.svg',
         'outlined': 'assets/icons/running_outlined.svg',
       },
-      ActivityType.biking: {
+      ActivityType.ciclismo: {
         'filled': 'assets/icons/biking_filled.svg',
         'outlined': 'assets/icons/biking_outlined.svg',
       },
@@ -52,6 +66,7 @@ class _ActivitySelectorState extends State<ActivitySelector> {
                 setState(() {
                   selectedActivity = activity;
                 });
+                widget.onActivityChanged(selectedActivity);
               },
               child: SvgPicture.asset(
                 isSelected

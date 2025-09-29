@@ -6,11 +6,12 @@ class ApiService {
 
   ApiService({required this.baseUrl});
 
-  Future<Map<String, dynamic>> get(String endpoint) async {
+  Future<dynamic> get(String endpoint) async {
     final url = Uri.parse('$baseUrl$endpoint');
     try {
       final response = await http.get(url);
-      return _processResponse(response);
+      final data = response.body;
+      return jsonDecode(data);
     } catch (e) {
       throw Exception('Erro ao fazer GET: $e');
     }
@@ -24,7 +25,8 @@ class ApiService {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),
       );
-      return _processResponse(response);
+      final data = response.body;
+      return jsonDecode(data);
     } catch (e) {
       throw Exception('Erro ao fazer POST: $e');
     }
@@ -38,7 +40,8 @@ class ApiService {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),
       );
-      return _processResponse(response);
+      final data = response.body;
+      return jsonDecode(data);
     } catch (e) {
       throw Exception('Erro ao fazer PUT: $e');
     }
@@ -48,20 +51,11 @@ class ApiService {
     final url = Uri.parse('$baseUrl$endpoint');
     try {
       final response = await http.delete(url);
-      return _processResponse(response);
+      final data = response.body;
+      return jsonDecode(data);
     } catch (e) {
       throw Exception('Erro ao fazer DELETE: $e');
     }
   }
 
-  Map<String, dynamic> _processResponse(http.Response response) {
-    final statusCode = response.statusCode;
-    final body = response.body.isNotEmpty ? jsonDecode(response.body) : {};
-
-    if (statusCode >= 200 && statusCode < 300) {
-      return body;
-    } else {
-      throw Exception('Erro na API: ${response.statusCode} - $body');
-    }
-  }
 }
