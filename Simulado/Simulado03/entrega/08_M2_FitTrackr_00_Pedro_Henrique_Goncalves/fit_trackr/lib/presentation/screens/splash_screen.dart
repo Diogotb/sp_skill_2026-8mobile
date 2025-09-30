@@ -1,4 +1,4 @@
-import 'package:fit_trackr/auth/auth_provider.dart';
+import 'package:fit_trackr/presentation/providers/user_provider.dart';
 import 'package:fit_trackr/auth/services/auth_service.dart';
 import 'package:fit_trackr/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (userId != null) {
       final user = await _userService.getUserById(userId);
-      Provider.of<AuthProvider>(context, listen: false).login(user);
+      Provider.of<UserProvider>(context, listen: false).login(user);
       isLoggedIn = true;
     }
 
@@ -49,8 +49,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator(),),
+    return Scaffold(
+      body: Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(64.0),
+            child: CircularProgressIndicator(),
+          ),
+          Text("Carregando dados...", style: Theme.of(context).textTheme.bodyLarge,),
+          Text("Caso esteja demorando muito, verifique \n sua conexão com a internet", style:  Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center,)
+        ],
+      ),),
     );
   }
 }

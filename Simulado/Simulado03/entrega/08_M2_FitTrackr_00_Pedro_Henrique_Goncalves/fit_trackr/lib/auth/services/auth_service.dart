@@ -1,7 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/api_service.dart';
-import '../auth_provider.dart';
+import '../../presentation/providers/user_provider.dart';
 import '../models/user_model.dart';
 
 class AuthService {

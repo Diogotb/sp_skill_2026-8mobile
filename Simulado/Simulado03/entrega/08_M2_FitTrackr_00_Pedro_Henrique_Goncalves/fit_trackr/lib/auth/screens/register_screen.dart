@@ -4,7 +4,7 @@ import 'package:fit_trackr/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../auth_provider.dart';
+import '../../presentation/providers/user_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     final user = await _authService.register(email, password, name);
     if(user != null){
-      Provider.of<AuthProvider>(context, listen: false).login(user);
+      Provider.of<UserProvider>(context, listen: false).login(user);
       Navigator.pushReplacementNamed(context, '/dashboard');
     } else{
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ocorreu um erro ao registrar")));
@@ -66,13 +66,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             const SizedBox(height: 48),
-            CustomTextFormField(controller: _nameController, label: "Nome"),
+            CustomTextFormField(controller: _nameController, label: "Nome",),
             const SizedBox(height: 24),
             CustomTextFormField(controller: _emailController, label: "Email"),
             const SizedBox(height: 24),
-            CustomTextFormField(controller: _passwordController, label: "Senha"),
+            CustomTextFormField(controller: _passwordController, label: "Senha", isPassword: true,),
             const SizedBox(height: 24),
-            CustomTextFormField(controller: _confirmPasswordController, label: "Confirmar Senha"),
+            CustomTextFormField(controller: _confirmPasswordController, label: "Confirmar Senha", isPassword: true,),
             const SizedBox(height: 48),
             CustomButton(onPressed: register, label: "Cadastrar"),
             TextButton(
