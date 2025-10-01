@@ -143,98 +143,83 @@
         "dailyCaloriesBurn": 0,
         "dailyCaloriesConsume": 0
       }
+    },
+    {
+      "id": "a453",
+      "name": "Pedro 123",
+      "email": "pedro123@gmail.com",
+      "password": "pedropedro",
+      "avatarUrl": "https://i.pravatar.cc/150?u=pdro@gmail.com",
+      "goals": {
+        "dailySteps": 15000,
+        "dailyCaloriesBurn": 15000,
+        "dailyCaloriesConsume": 15000
+      }
     }
   ],
   "activities": [
     {
-      "id": "101",
-      "userId": 1,
-      "type": "Corrida",
-      "duration": "00:30:00",
-      "distance": 5.2,
-      "caloriesBurned": 350,
-      "date": "2024-05-20T08:00:00Z"
+      "id": "d0bd",
+      "userId": "5",
+      "type": "musculacao",
+      "duration": "12",
+      "distance": 0,
+      "caloriesBurned": 213,
+      "createdAt": "2025-09-30T14:03:37.110030"
     },
     {
-      "id": "102",
-      "userId": 1,
-      "type": "Musculação",
-      "duration": "01:00:00",
-      "distance": null,
-      "caloriesBurned": 250,
-      "date": "2024-05-20T18:00:00Z"
-    },
-    {
-      "id": "103",
-      "userId": 2,
-      "type": "Ciclismo",
-      "duration": "00:45:00",
-      "distance": 15,
-      "caloriesBurned": 400,
-      "date": "2024-05-20T19:00:00Z"
-    },
-    {
-      "id": "104",
-      "userId": 1,
-      "type": "Corrida",
-      "duration": "00:25:00",
-      "distance": 4.5,
-      "caloriesBurned": 300,
-      "date": "2024-05-19T08:00:00Z"
-    },
-    {
-      "id": "105",
-      "userId": 3,
-      "type": "Natação",
-      "duration": "00:50:00",
-      "distance": 2,
-      "caloriesBurned": 500,
-      "date": "2024-05-20T07:00:00Z"
-    },
-    {
-      "id": null,
+      "id": "20f5",
       "userId": "5",
       "type": "corrida",
       "duration": "123",
-      "distance": 13,
-      "caloriesBurned": 123132,
-      "createdAt": "2025-09-29T16:31:21.732295"
-    },
-    {
-      "id": "97cd",
-      "userId": "5",
-      "type": "ActivityType.corrida",
-      "duration": "123",
-      "distance": 123,
-      "caloriesBurned": 123,
-      "createdAt": "2025-09-29T16:33:23.200236"
-    },
-    {
-      "id": "6644",
-      "userId": "5",
-      "type": "ActivityType.musculacao",
-      "duration": "123",
-      "distance": 0,
-      "caloriesBurned": 123,
-      "createdAt": "2025-09-29T16:38:19.744019"
-    },
-    {
-      "id": "aba5",
-      "userId": "5",
-      "type": "ActivityType.natacao",
-      "duration": "123",
-      "distance": 0,
-      "caloriesBurned": 123123,
-      "createdAt": "2025-09-29T16:38:27.619680"
-    },
-    {
-      "id": "2ab4",
-      "userId": "5",
-      "type": "ActivityType.ciclismo",
-      "duration": "123",
       "distance": 23,
       "caloriesBurned": 123,
-      "createdAt": "2025-09-29T16:38:32.084054"
+      "createdAt": "2025-09-30T14:04:00.148462"
+    },
+    {
+      "id": "681e",
+      "userId": "5",
+      "type": "ciclismo",
+      "duration": "123",
+      "distance": 2323,
+      "caloriesBurned": 2132,
+      "createdAt": "2025-09-30T14:04:06.332924"
+    },
+    {
+      "id": "e6f7",
+      "userId": "a453",
+      "type": "ciclismo",
+      "duration": "30:00",
+      "distance": 3000,
+      "caloriesBurned": 3000,
+      "createdAt": "2025-09-30T15:48:54.725037"
+    },
+    {
+      "id": "97b5",
+      "userId": "a453",
+      "type": "ciclismo",
+      "duration": "23",
+      "distance": 123,
+      "caloriesBurned": 123,
+      "createdAt": "2025-09-30T15:49:06.935907"
+    },
+    {
+      "id": "d7f5",
+      "userId": "a453",
+      "type": "musculacao",
+      "duration": "123",
+      "distance": 0,
+      "caloriesBurned": 123,
+      "createdAt": "2025-09-30T15:56:46.773403"
+    },
+    {
+      "id": "2e26",
+      "userId": "a453",
+      "type": "musculacao",
+      "duration": "213",
+      "distance": 0,
+      "caloriesBurned": 432,
+      "createdAt": "2025-09-30T15:57:42.428631"
     }
   ],
   "meals": [
@@ -265,19 +250,19 @@
       "date": "2024-05-20T12:30:00Z",
       "foodItems": [
         {
-          "foodId": 302,
+          "foodId": "302",
           "name": "Peito de Frango Grelhado (100g)",
           "quantity": 1.5,
           "calories": 248
         },
         {
-          "foodId": 303,
+          "foodId": "303",
           "name": "Arroz Integral (100g)",
           "quantity": 1,
           "calories": 111
         },
         {
-          "foodId": 304,
+          "foodId": "304",
           "name": "Brócolis Cozido (100g)",
           "quantity": 1,
           "calories": 35
@@ -301,6 +286,135 @@
           "name": "Salada Verde com Azeite",
           "quantity": 1,
           "calories": 150
+        }
+      ]
+    },
+    {
+      "id": "ea72",
+      "userId": "10",
+      "type": "Cafe da Manha",
+      "date": "2025-09-30T14:48:25.874571",
+      "foodItems": [
+        {
+          "id": "302",
+          "name": "Peito de Frango Grelhado (100g)",
+          "caloriesPerUnit": 165,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "303",
+          "name": "Arroz Integral (100g)",
+          "caloriesPerUnit": 111,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "304",
+          "name": "Brócolis Cozido (100g)",
+          "caloriesPerUnit": 35,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "306",
+          "name": "Salmão Grelhado (100g)",
+          "caloriesPerUnit": 208,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "305",
+          "name": "Pão Integral",
+          "caloriesPerUnit": 80,
+          "unit": "fatia",
+          "quantity": 1
+        },
+        {
+          "id": "301",
+          "name": "Ovo Cozido",
+          "caloriesPerUnit": 78,
+          "unit": "unidade",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "9e94",
+      "userId": "10",
+      "type": "Almoco",
+      "date": "2025-09-30T14:48:56.155404",
+      "foodItems": [
+        {
+          "id": "301",
+          "name": "Ovo Cozido",
+          "caloriesPerUnit": 78,
+          "unit": "unidade",
+          "quantity": 1
+        },
+        {
+          "id": "302",
+          "name": "Peito de Frango Grelhado (100g)",
+          "caloriesPerUnit": 165,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "304",
+          "name": "Brócolis Cozido (100g)",
+          "caloriesPerUnit": 35,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "305",
+          "name": "Pão Integral",
+          "caloriesPerUnit": 80,
+          "unit": "fatia",
+          "quantity": 1
+        },
+        {
+          "id": "306",
+          "name": "Salmão Grelhado (100g)",
+          "caloriesPerUnit": 208,
+          "unit": "porção",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "ab91",
+      "userId": "a453",
+      "type": "321",
+      "date": "2025-09-30T15:56:10.629642",
+      "foodItems": [
+        {
+          "id": "306",
+          "name": "Salmão Grelhado (100g)",
+          "caloriesPerUnit": 208,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "305",
+          "name": "Pão Integral",
+          "caloriesPerUnit": 80,
+          "unit": "fatia",
+          "quantity": 1
+        },
+        {
+          "id": "303",
+          "name": "Arroz Integral (100g)",
+          "caloriesPerUnit": 111,
+          "unit": "porção",
+          "quantity": 1
+        },
+        {
+          "id": "302",
+          "name": "Peito de Frango Grelhado (100g)",
+          "caloriesPerUnit": 165,
+          "unit": "porção",
+          "quantity": 1
         }
       ]
     }

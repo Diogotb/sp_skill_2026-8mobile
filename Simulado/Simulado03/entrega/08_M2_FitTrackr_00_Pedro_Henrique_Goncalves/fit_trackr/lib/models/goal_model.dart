@@ -16,4 +16,12 @@ class UserGoals {
       dailyCaloriesConsume: map["dailyCaloriesConsume"],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'dailySteps': dailySteps,
+      'dailyCaloriesBurn': dailyCaloriesBurn,
+      'dailyCaloriesConsume': dailyCaloriesConsume,
+    };
+  }
 }

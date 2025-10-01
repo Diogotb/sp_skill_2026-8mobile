@@ -1,4 +1,4 @@
-import 'package:fit_trackr/auth/auth_provider.dart';
+import 'package:fit_trackr/presentation/providers/user_provider.dart';
 import 'package:fit_trackr/core/enums/activity_type_enum.dart';
 import 'package:fit_trackr/models/activity_model.dart';
 import 'package:fit_trackr/presentation/providers/activities_provider.dart';
@@ -28,7 +28,7 @@ class _AddActivityScreenState extends State<AddActivityScreen> {
   @override
   Widget build(BuildContext context) {
     final _activityProvider = Provider.of<ActivitiesProvider>(context);
-    final user = Provider.of<AuthProvider>(context).currentUser;
+    final user = Provider.of<UserProvider>(context).currentUser;
 
     return Scaffold(
       body: Padding(padding: EdgeInsets.all(16), child: Column(
@@ -55,7 +55,7 @@ class _AddActivityScreenState extends State<AddActivityScreen> {
           SizedBox(height: 84,),
           CustomButton(
             onPressed: () {
-              final user = Provider.of<AuthProvider>(context, listen: false).currentUser;
+              final user = Provider.of<UserProvider>(context, listen: false).currentUser;
               final activityProvider = Provider.of<ActivitiesProvider>(context, listen: false);
 
               if (_selectedActivityType == null ||
@@ -96,7 +96,7 @@ class _AddActivityScreenState extends State<AddActivityScreen> {
           ),
         ],
       ),),
-      
+
       bottomNavigationBar: CustomBottomNavBar(currentIndex: 1),
     );
   }

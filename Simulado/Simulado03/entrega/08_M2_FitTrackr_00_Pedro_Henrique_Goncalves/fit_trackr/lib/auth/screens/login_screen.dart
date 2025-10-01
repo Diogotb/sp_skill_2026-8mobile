@@ -5,7 +5,7 @@ import 'package:fit_trackr/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../auth_provider.dart';
+import '../../presentation/providers/user_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final user = await _authService.login(email, senha);
 
     if(user != null){
-      Provider.of<AuthProvider>(context, listen: false).login(user);
+      Provider.of<UserProvider>(context, listen: false).login(user);
       Navigator.pushReplacementNamed(context, '/dashboard');
     } else{
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ocorreu um erro ao processar o login")));
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 48),
             CustomTextFormField(controller: _emailController, label: "Email"),
             const SizedBox(height: 48),
-            CustomTextFormField(controller: _senhaController, label: "Senha"),
+            CustomTextFormField(controller: _senhaController, label: "Senha", isPassword:  true,),
             const SizedBox(height: 48),
             CustomButton(onPressed: login, label: "Entrar"),
 

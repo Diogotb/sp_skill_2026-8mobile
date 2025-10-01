@@ -1,38 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:fit_trackr/models/meal_model.dart';
+
+import '../providers/meals_provider.dart';
 
 class MealListView extends StatelessWidget {
-  final List<Map<String, dynamic>> meals = const [
-    {
-      "id": 201,
-      "type": "Café da Manhã",
-      "foodItems": [
-        {"name": "Ovo Cozido", "quantity": 2, "calories": 156},
-        {"name": "Pão Integral", "quantity": 1, "calories": 80},
-      ],
-    },
-    {
-      "id": 202,
-      "type": "Almoço",
-      "foodItems": [
-        {"name": "Peito de Frango Grelhado (100g)", "quantity": 1.5, "calories": 248},
-        {"name": "Arroz Integral (100g)", "quantity": 1, "calories": 111},
-        {"name": "Brócolis Cozido (100g)", "quantity": 1, "calories": 35},
-      ],
-    },
-    {
-      "id": 203,
-      "type": "Jantar",
-      "foodItems": [
-        {"name": "Salmão Grelhado (100g)", "quantity": 1, "calories": 208},
-        {"name": "Salada Verde com Azeite", "quantity": 1, "calories": 150},
-      ],
-    },
-  ];
-
   const MealListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final mealsProvider = Provider.of<MealsProvider>(context);
+
+    if (mealsProvider.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final meals = mealsProvider.meals;
+
+    if (meals.isEmpty) {
+      return const Center(child: Text("Nenhuma refeição registrada."));
+    }
+
     final Color primaryColor = Theme.of(context).colorScheme.primary;
     final Color secondaryColor = Theme.of(context).colorScheme.secondary;
 
@@ -40,11 +28,8 @@ class MealListView extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       itemCount: meals.length,
       itemBuilder: (context, index) {
-        final meal = meals[index];
-        final foodItems = meal['foodItems'] as List<dynamic>;
-
-        final int totalCalories =
-        foodItems.fold(0, (sum, item) => sum + item['calories'] as int);
+        final Meal meal = meals[index];
+        final int totalCalories = meal.totalCalories.toInt();
 
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -61,7 +46,7 @@ class MealListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      meal['type'],
+                      meal.type,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -79,7 +64,7 @@ class MealListView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 8.0),
-                ...foodItems.map((item) {
+                ...meal.foodItems.map((item) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2.0),
                     child: Row(
@@ -87,20 +72,21 @@ class MealListView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['quantity']} x ${item['name']}",
-                            style: const TextStyle(fontSize: 16, color: Colors.grey),
+                            "${item.quantity} x ${item.food.name}",
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          "${item['calories']} Kcal",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          "${item.totalCalories.toInt()} Kcal",
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-
                   );
                 }).toList(),
               ],

@@ -1,8 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fit_trackr/auth/auth_provider.dart';
+import 'package:fit_trackr/presentation/providers/user_provider.dart';
 import 'package:fit_trackr/core/themes/app_colors.dart';
 import 'package:fit_trackr/models/goal_model.dart';
 import 'package:fit_trackr/presentation/screens/add_activity_screen.dart';
+import 'package:fit_trackr/presentation/screens/set_goals_screen.dart';
 import 'package:fit_trackr/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:fit_trackr/presentation/widgets/custom_header.dart';
 import 'package:fit_trackr/presentation/widgets/daily_steps_chart.dart';
@@ -23,9 +24,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     dailyCaloriesConsume: 1300,
   );
 
+  final List<double> stepsMock = [7000, 8000, 9500, 9000, 10500, 12000, 5500];
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthProvider>(context).currentUser;
+    final user = Provider.of<UserProvider>(context).currentUser;
+
+    if (user != null &&
+        (user.goals.dailySteps == 0 ||
+            user.goals.dailyCaloriesBurn == 0 ||
+            user.goals.dailyCaloriesConsume == 0)) {
+      return const SetGoalsScreen();
+    }
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -208,7 +219,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text("Meus passos", style: Theme.of(context).textTheme.titleLarge),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
-              child: Expanded(child: DailyStepsChart()),
+              child: DailyStepsChart(
+                stepsTarget: user.goals.dailySteps.toDouble(),
+                dailySteps: stepsMock,
+              ),
             ),
           ],
         ),

@@ -21,9 +21,13 @@ class _CustomButtonState extends State<CustomButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          foregroundColor: Theme.of(context).colorScheme.onSurface,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           backgroundColor: Theme.of(context).colorScheme.primary,
-          textStyle: Theme.of(context).textTheme.titleLarge,
+          textStyle: TextStyle(
+            fontSize: 24,
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.bold,
+          ),
         ),
         child: Text(widget.label),
       ),

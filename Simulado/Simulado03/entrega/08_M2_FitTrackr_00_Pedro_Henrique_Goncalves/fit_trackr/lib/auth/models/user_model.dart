@@ -30,4 +30,26 @@ class User {
       goals: goals,
     );
   }
+
+  User copyWith({String? id, String? name, UserGoals? goals, String? email, String? password, String? avatarUrl}) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      goals: goals ?? this.goals,
+      password: password ?? this.password,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      email: email ?? this.email
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      if (id != null) 'id': id,
+      'name': name,
+      'email': email,
+      'password': password,
+      'avatarUrl': avatarUrl,
+      'goals': goals.toMap(),
+    };
+  }
 }

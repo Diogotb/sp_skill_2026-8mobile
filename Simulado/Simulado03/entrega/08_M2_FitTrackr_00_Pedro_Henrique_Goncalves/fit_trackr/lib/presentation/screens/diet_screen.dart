@@ -1,6 +1,9 @@
+import 'package:fit_trackr/presentation/providers/meals_provider.dart';
+import 'package:fit_trackr/presentation/screens/add_meal_screen.dart';
 import 'package:fit_trackr/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:fit_trackr/presentation/widgets/meal_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/custom_header.dart';
 
@@ -12,6 +15,14 @@ class DietScreen extends StatefulWidget {
 }
 
 class _DietScreenState extends State<DietScreen> {
+
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        Provider.of<MealsProvider>(context, listen: false).fetchMeals()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +40,15 @@ class _DietScreenState extends State<DietScreen> {
         ),
       ),
       bottomNavigationBar: CustomBottomNavBar(currentIndex: 2),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddMealScreen()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
