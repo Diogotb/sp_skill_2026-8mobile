@@ -63,3 +63,5 @@ Os simulados devem seguir a estrutura dos projetos teste da competição, com du
 Reuniões de feedback rápido podem ser realizadas nas sextas-feiras, mesmo fora do horário regular.
 
 Se quiser, posso montar um cronograma visual com os tópicos semanais também. Deseja isso?
+
+20/10/2025
