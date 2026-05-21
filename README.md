@@ -65,3 +65,34 @@ Reuniões de feedback rápido podem ser realizadas nas sextas-feiras, mesmo fora
 Se quiser, posso montar um cronograma visual com os tópicos semanais também. Deseja isso?
 
 20/10/2025
+
+|teste|tabela|valor|
+|-|-|-|
+|oi|linha|R$ 10|
+
+
+``` mermaid
+
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool is_wild
+      +run()
+    }
+
+```
